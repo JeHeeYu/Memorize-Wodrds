@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/pages/profile_page.dart';
 import 'package:memorize_wodrds/src/pages/search_page.dart';
-
+import 'package:memorize_wodrds/src/static/strings_data.dart';
 import '../pages/home_page.dart';
 
 class BottomNavigationController extends StatefulWidget {
@@ -15,9 +15,9 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
   int _selectIndex = 0;
 
   final List<Widget> _pages = <Widget> [
-    HomePage(),
-    SearchPage(),
-    ProfilePage(),
+    const HomePage(),
+    const SearchPage(),
+    const ProfilePage(),
   ];
 
   void _onBottomTapped(int index) {
@@ -41,15 +41,15 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'home',
+            label: Strings.BOTTOM_TAB_HOME_TEXT,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'search',
+            icon: Icon(Icons.image_search),
+            label: Strings.BOTTOM_TAB_SEARCH_TEXT,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'profile',
+            icon: Icon(Icons.settings_rounded),
+            label: Strings.BOTTOM_TAB_PROFILE_TEXT,
           ),
         ],
       ),
