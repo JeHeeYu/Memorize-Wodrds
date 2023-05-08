@@ -41,15 +41,15 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: Strings.BOTTOM_TAB_HOME_TEXT,
+            label: Strings.STR_BOTTOM_TAB_HOME,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.image_search),
-            label: Strings.BOTTOM_TAB_SEARCH_TEXT,
+            label: Strings.STR_BOTTOM_TAB_SEARCH,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_rounded),
-            label: Strings.BOTTOM_TAB_PROFILE_TEXT,
+            label: Strings.STR_BOTTOM_TAB_PROFILE,
           ),
         ],
       ),
