@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "992188736651",
+    "project_id": "memorize-words-43e56",
+    "storage_bucket": "memorize-words-43e56.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992188736651:android:c714cccf12c53a6b79608e",
+        "android_client_info": {
+          "package_name": "com.example.memorize_wodrds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992188736651-pcjpd0ala68gb6ef9f2bksn1hvgamn57.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiC2uO54fQ8VJZTOS26HHq8LJfm_8QvF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992188736651-pcjpd0ala68gb6ef9f2bksn1hvgamn57.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

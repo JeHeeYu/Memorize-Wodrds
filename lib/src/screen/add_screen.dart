@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:memorize_wodrds/src/network/firebase_manager.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
@@ -11,6 +14,9 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  // Firebase Instance
+  final FirebaseManager firebaseManager = FirebaseManager();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +41,20 @@ class _AddScreenState extends State<AddScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                Map<String, dynamic> data = {
+                  'Tissue': '휴지',
+                  'Store': '상점',
+                  'Smoke': '담배',
+                  'Hello': '안녕',
+                  'Sky': '하늘',
+                  'Today': '오늘',
+                };
+                firebaseManager.addWord(data);
+
+                bool apple = await firebaseManager.checkSavedWord('Apple');
+                print("apple : ${apple}");
+              },
               child: const Text(Strings.STR_COMMON_ADD),
             ),
           ],
