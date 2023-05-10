@@ -18,4 +18,7 @@ class Strings {
 
   // Add Screen
   static const String STR_ADD_SCREEN_WORD_ADD = "단어 추가하기";
+  static const String STR_ADD_SCREEN_WORD_SAVE_SUCCESS = "단어가 정상적으로 저장되었습니다.";
+  static const String STR_ADD_SCREEN_WORD_NOT_AVAILABLE = "단어가 비었습니다.\n제대로 입력해주세요.";
+  static const String STR_ADD_SCREEN_MEANING_NOT_AVAILABLE = "뜻이 비었습니다.\n제대로 입력해주세요.";
 }
