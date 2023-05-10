@@ -55,8 +55,62 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 65),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Memorize",
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.black,
+          ),
+        ),
+        titleSpacing: 0,
+        backgroundColor: Colors.white,
+        elevation: 1,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            color: Colors.grey,
+          ),
+        ),
+      ),
+      body: Column(
+  children: [
+    Container(
+      height: 100,
+      margin: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Color(0xFFF3F6FB),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const[
+            Text(
+              "지금까지 알게 된 단어는 XX개 입니다.",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "지금까지 알게 된 문장은 XX개 입니다.",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    Expanded(
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -66,15 +120,11 @@ class HomePage extends StatelessWidget {
           return GridTile(
             child: GestureDetector(
               onTap: () async {
-                print("click event : ${index}");
-
+                print("click event : $index");
                 final int? result = await showDialog<int>(
                   context: context,
-                  builder: (BuildContext context) {
-                    return const PopupDialog();
-                  },
+                  builder: (BuildContext context) => const PopupDialog(),
                 );
-
                 if (result == 0) {
                   await navigateToAddScreen(context);
                 } else {
@@ -91,6 +141,9 @@ class HomePage extends StatelessWidget {
           );
         },
       ),
+    ),
+  ],
+),
     );
   }
 }
