@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
+import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/components/toast_dialog.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
@@ -50,9 +52,10 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Strings.STR_ADD_SCREEN_WORD_ADD),
+      appBar: const AppBarWidget(
+        title: Strings.STR_ADD_SCREEN_WORD_ADD,
       ),
+      drawer: const LeftMenu(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

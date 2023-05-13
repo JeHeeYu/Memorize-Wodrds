@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
+import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/components/select_dialog.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
 import 'package:memorize_wodrds/src/screen/add_screen.dart';
@@ -68,58 +70,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Memorize",
-          style: TextStyle(color: Colors.black),
-        ),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-              vertical: 15,
-            ),
-            child: const Text(
-              "추가",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-              vertical: 15,
-            ),
-            child: Text(
-              ('W + ${documentCount}'),
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
-        titleSpacing: 0,
-        backgroundColor: Colors.white,
-        elevation: 1,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(
-            color: Colors.grey,
-          ),
-        ),
+      appBar: const AppBarWidget(
+        title: Strings.STR_COMMON_HOME,
       ),
+      drawer: const LeftMenu(),
       body: Column(
         children: [
           Container(

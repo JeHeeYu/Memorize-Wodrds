@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
+import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/static/images_data.dart';
+import 'package:memorize_wodrds/src/static/strings_data.dart';
 
 class ListScreen extends StatelessWidget {
   static final List<String> imagesPath = [
@@ -38,9 +41,10 @@ class ListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Image Grid'),
+      appBar: const AppBarWidget(
+        title: Strings.STR_ADD_SCREEN_WORD_LIST,
       ),
+      drawer: const LeftMenu(),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: GridView.builder(

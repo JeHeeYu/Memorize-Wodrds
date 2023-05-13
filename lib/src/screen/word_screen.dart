@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
+import 'package:memorize_wodrds/src/components/left_menu.dart';
+import 'package:memorize_wodrds/src/static/strings_data.dart';
 
 class WordScreen extends StatefulWidget {
   final String word;
@@ -28,9 +31,10 @@ class _WordScreenState extends State<WordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Word Details'),
+      appBar: const AppBarWidget(
+        title: Strings.STR_COMMON_WODRD,
       ),
+      drawer: const LeftMenu(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
