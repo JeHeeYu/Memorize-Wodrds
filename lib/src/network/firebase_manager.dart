@@ -44,30 +44,40 @@ class FirebaseManager {
 
   Future<String?> readMeaning(String key) async {
     try {
-      DocumentSnapshot snapshot = await _collectionName.doc(_documentString).get();
+      DocumentSnapshot snapshot =
+          await _collectionName.doc(_documentString).get();
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       if (data.containsKey(key)) {
         return data[key];
-      } 
-      else {
+      } else {
         return null;
       }
-    } 
-    catch (e) {
-      print('Failed to get data: $e'); 
+    } catch (e) {
+      print('Failed to get data: $e');
       return null;
     }
   }
 
   Future<bool> checkSavedWord(String key) async {
     try {
-      DocumentSnapshot snapshot = await _collectionName.doc(_documentString).get();
+      DocumentSnapshot snapshot =
+          await _collectionName.doc(_documentString).get();
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       return data.containsKey(key);
-    } 
-    catch (e) {
+    } catch (e) {
       print('Failed to get data: $e');
       return false;
+    }
+  }
+
+  Future<int> getDocumentDataCount(String documentName) async {
+    try {
+      DocumentSnapshot snapshot = await _collectionName.doc(documentName).get();
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      return data.length;
+    } catch (e) {
+      print('Failed to get data: $e');
+      return 0;
     }
   }
 }

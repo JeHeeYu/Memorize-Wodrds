@@ -92,18 +92,20 @@ class _AddScreenState extends State<AddScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                if (_wordController.text.isEmpty) {
-                  ToastDialog.showToastDialog(
-                      context, Strings.STR_ADD_SCREEN_WORD_NOT_AVAILABLE);
-                } else if (_meaningController.text.isEmpty) {
-                  ToastDialog.showToastDialog(
-                      context, Strings.STR_ADD_SCREEN_MEANING_NOT_AVAILABLE);
-                } else {
-                  ToastDialog.showToastDialog(
-                      context, Strings.STR_ADD_SCREEN_WORD_SAVE_SUCCESS);
-                  wordSaveData(_wordController.text, _meaningController.text);
-                }
+              onPressed: () async {
+                int jehee = await firebaseManager.getDocumentDataCount('DKjFpHIBRzMlLPlDRWsz'); 
+                print("Jehee : ${jehee}");
+                // if (_wordController.text.isEmpty) {
+                //   ToastDialog.showToastDialog(
+                //       context, Strings.STR_ADD_SCREEN_WORD_NOT_AVAILABLE);
+                // } else if (_meaningController.text.isEmpty) {
+                //   ToastDialog.showToastDialog(
+                //       context, Strings.STR_ADD_SCREEN_MEANING_NOT_AVAILABLE);
+                // } else {
+                //   ToastDialog.showToastDialog(
+                //       context, Strings.STR_ADD_SCREEN_WORD_SAVE_SUCCESS);
+                //   wordSaveData(_wordController.text, _meaningController.text);
+                // }
               },
               child: const Text(Strings.STR_COMMON_ADD),
             ),
