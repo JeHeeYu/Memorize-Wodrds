@@ -3,6 +3,7 @@ import 'package:memorize_wodrds/src/components/select_dialog.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
 import 'package:memorize_wodrds/src/screen/add_screen.dart';
 import 'package:memorize_wodrds/src/screen/list_screen.dart';
+import 'package:memorize_wodrds/src/screen/search_screen.dart';
 import 'package:memorize_wodrds/src/static/images_data.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
     } else {
       await Navigator.push(
         context!,
-        MaterialPageRoute(builder: (context) => const ListScreen()),
+        MaterialPageRoute(builder: (context) => const SearchScreen()),
       );
     }
   }

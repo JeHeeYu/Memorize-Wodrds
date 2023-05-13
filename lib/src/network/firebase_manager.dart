@@ -80,4 +80,39 @@ class FirebaseManager {
       return 0;
     }
   }
+
+  Future<List<String>> searchWords(String query) async {
+    try {
+      final snapshot = await _collectionName.doc(_documentString).get();
+      final data = snapshot.data() as Map<String, dynamic>;
+      final matchingWords = data.keys
+          .where((word) =>
+              word.toLowerCase().startsWith(query.toLowerCase().trim()))
+          .toList();
+      return matchingWords;
+    } catch (e) {
+      print('Failed to search words: $e');
+      return [];
+    }
+  }
+
+  Future<Map<String, String>?> getMeanings(List<String> words) async {
+    try {
+      DocumentSnapshot snapshot =
+          await _collectionName.doc(_documentString).get();
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      Map<String, String> meanings = {};
+
+      words.forEach((word) {
+        if (data.containsKey(word)) {
+          meanings[word] = data[word];
+        }
+      });
+
+      return meanings.isNotEmpty ? meanings : null;
+    } catch (e) {
+      print('Failed to get data: $e');
+      return null;
+    }
+  }
 }
