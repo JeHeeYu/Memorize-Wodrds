@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/components/search_bar_widget.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
+import 'package:memorize_wodrds/src/screen/word_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -25,6 +26,15 @@ class _SearchScreenState extends State<SearchScreen> {
       });
     });
   }
+
+  void _showWordScreen(String word, String meaning) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => WordScreen(word: word, meaning: meaning),
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       title: RichText(
                         text: TextSpan(
                           text: result.substring(0, startIndex),
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           children: [
                             TextSpan(
                               text: result.substring(startIndex, endIndex),
@@ -84,6 +94,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       ),
                       subtitle: Text(_meanings[result] ?? ''),
+                      onTap: () {
+                        final selectedWord = _searchResults[index];
+                        final selectedMeaning = _meanings[selectedWord];
+                        print('Selected word: $selectedWord');
+                        print('Selected meaning: $selectedMeaning');
+                        _showWordScreen(selectedWord.toString(), selectedMeaning.toString());
+                      },
                     );
                   },
                 ),
