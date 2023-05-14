@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/app.dart';
+import 'package:memorize_wodrds/src/screen/onboarding_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
           titleTextStyle: TextStyle(color: Colors.black),
         )
       ),
-      home: const App(),
+      //home: const App(),
+      home: OnboardingScreen(),
     );
   }
 }
