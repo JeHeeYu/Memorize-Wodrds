@@ -23,6 +23,8 @@ class AuthenticationManager {
       final UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
+      await updateUserData(userCredential.user!);
+
       final DatabaseReference userRef = FirebaseDatabase.instance
           .reference()
           .child('users')
@@ -34,22 +36,28 @@ class AuthenticationManager {
     return null;
   }
 
-  Future<void> checkUserRegistered() async {
+  Future<void> updateUserData(User currentUser) async {
+    final uid = currentUser.uid;
+
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    DocumentReference userDocRef =
+        firestore.collection(Strings.STR_FIRESTORE_USERS_COLLECTION).doc(uid);
+
+    Map<String, dynamic> userData = {
+      "name": currentUser.displayName,
+      "email": currentUser.email,
+    };
+
+    await userDocRef.update(userData);
+  }
+
+  Future<bool> checkUserRegistered() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
+      return false;
     } else {
-      final uid = currentUser.uid;
-
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      DocumentReference userDocRef = firestore.collection(Strings.STR_FIRESTORE_USERS_COLLECTION).doc(uid);
-
-      Map<String, dynamic> userData = {
-        "name": currentUser.displayName,
-        "email": currentUser.email,
-      };
-
-      await userDocRef.update(userData);
+      return true;
     }
   }
 

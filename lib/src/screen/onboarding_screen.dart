@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/app.dart';
 import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
+import 'package:memorize_wodrds/src/screen/login_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   AuthenticationManager authenticationManager = AuthenticationManager();
@@ -29,12 +30,23 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
+                    bool isUserRegistered =
+                        await authenticationManager.checkUserRegistered();
+print("Jehee : ${isUserRegistered}");
+
+                    if (isUserRegistered == false) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const App()),
+                      );
+                    }
                     // authenticationManager.checkUserRegistered();
                     // await authenticationManager.signInWithGoogle();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const App()),
-                    );
                   },
                   child: const Text('Get Started'),
                 ),
