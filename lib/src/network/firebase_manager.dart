@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 import 'package:yaml/yaml.dart';
 
 class FirebaseManager {
   late FirebaseFirestore _firestore;
+
+  final AuthenticationManager auto = AuthenticationManager();
 
   FirebaseManager() {
     _firestore = FirebaseFirestore.instance;
@@ -30,6 +33,8 @@ class FirebaseManager {
       if (wordData != null) {
         data.addAll(wordData);
       }
+
+      //await auto.signInWithGoogle();
 
       await wordDocRef.set(data);
       print('Data added');

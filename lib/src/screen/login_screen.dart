@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorize_wodrds/src/app.dart';
 import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -28,6 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ElevatedButton(
               onPressed: () async {
                 await authenticationManager.signInWithGoogle();
+
+                Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const App()),
+                      );
               },
               child: const Text('Login'),
             ),

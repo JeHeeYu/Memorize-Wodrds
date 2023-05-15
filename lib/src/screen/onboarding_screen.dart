@@ -32,12 +32,12 @@ class OnboardingScreen extends StatelessWidget {
                   onPressed: () async {
                     bool isUserRegistered =
                         await authenticationManager.checkUserRegistered();
-print("Jehee : ${isUserRegistered}");
 
                     if (isUserRegistered == false) {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
                       );
                     } else {
                       Navigator.pushReplacement(
