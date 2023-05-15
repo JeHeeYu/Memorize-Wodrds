@@ -29,4 +29,11 @@ class Strings {
 
   // List Screen
   static const String STR_ADD_SCREEN_WORD_LIST = "단어 보기";
+  
+
+  // Firestore Key
+  static const String STR_FIRESTORE_USERS_COLLECTION = 'users';
+  static const String STR_FIRESTORE_DATA_COLLECTION = 'data';
+  static const String STR_FIRESTORE_WORDS_FIELD = 'words';
+  static const String STR_FIRESTORE_SENTENCES_FILED = 'sentences';
 }

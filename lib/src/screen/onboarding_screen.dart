@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/app.dart';
+import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
 
 class OnboardingScreen extends StatelessWidget {
+  AuthenticationManager authenticationManager = AuthenticationManager();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +28,9 @@ class OnboardingScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 24),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    // authenticationManager.checkUserRegistered();
+                    // await authenticationManager.signInWithGoogle();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => const App()),

@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:memorize_wodrds/src/app.dart';
 import 'package:memorize_wodrds/src/screen/onboarding_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   runApp(const MyApp());
 }
