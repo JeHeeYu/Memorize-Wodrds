@@ -107,31 +107,34 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: 4,
-              itemBuilder: (BuildContext context, int index) {
-                return GridTile(
-                  child: GestureDetector(
-                    onTap: () async {
-                      print("click event : $index");
-                      // final int? result = await showDialog<int>(
-                      //   context: context,
-                      //   builder: (BuildContext context) => const PopupDialog(),
-                      // );
-                      await navigateToAddScreen(context, index);
-                    },
-                    child: Column(
-                      children: [
-                        homeWidgetImage(index),
-                        homeWidgetString(index),
-                      ],
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                ),
+                itemCount: 2,
+                itemBuilder: (BuildContext context, int index) {
+                  return GridTile(
+                    child: GestureDetector(
+                      onTap: () async {
+                        print("click event : $index");
+                        final int? result = await showDialog<int>(
+                          context: context,
+                          builder: (BuildContext context) => const PopupDialog(),
+                        );
+                        await navigateToAddScreen(context, index);
+                      },
+                      child: Column(
+                        children: [
+                          homeWidgetImage(index),
+                          homeWidgetString(index),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ],

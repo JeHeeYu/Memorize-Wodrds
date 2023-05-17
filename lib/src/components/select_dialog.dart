@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorize_wodrds/src/static/strings_data.dart';
 
 class PopupDialog extends StatefulWidget {
   const PopupDialog({Key? key}) : super(key: key);
@@ -19,18 +20,18 @@ class _PopupDialogState extends State<PopupDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Choose an option'),
+      title: const Text(Strings.STR_ADD_SCREEN_ADD_TYPE),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           RadioListTile<int>(
-            title: const Text('Word'),
+            title: const Text(Strings.STR_COMMON_WODRD),
             value: 0,
             groupValue: _radioValue,
             onChanged: _handleRadioValueChanged,
           ),
           RadioListTile<int>(
-            title: const Text('Sentence'),
+            title: const Text(Strings.STR_COMMON_SENTENCE),
             value: 1,
             groupValue: _radioValue,
             onChanged: _handleRadioValueChanged,
@@ -42,13 +43,13 @@ class _PopupDialogState extends State<PopupDialog> {
           onPressed: () {
             Navigator.of(context).pop(_radioValue);
           },
-          child: const Text('OK'),
+          child: const Text(Strings.STR_COMMON_OK),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Cancel'),
+          child: const Text(Strings.STR_COMMON_CANCEL),
         ),
       ],
     );

@@ -3,10 +3,13 @@
 class Strings {
   // Common
   static const String STR_COMMON_WODRD = "단어";
+  static const String STR_COMMON_SENTENCE = "문장";
   static const String STR_COMMON_MEANING = "뜻";
   static const String STR_COMMON_ADD = "추가";
   static const String STR_COMMON_HOME = "홈";
   static const String STR_COMMON_MENU = "메뉴";
+  static const String STR_COMMON_OK = "확인";
+  static const String STR_COMMON_CANCEL = "취소";
   
 
   // Bottom Navigation
@@ -36,4 +39,7 @@ class Strings {
   static const String STR_FIRESTORE_DATA_COLLECTION = 'data';
   static const String STR_FIRESTORE_WORDS_FIELD = 'words';
   static const String STR_FIRESTORE_SENTENCES_FILED = 'sentences';
+
+  // Popup
+  static const String STR_ADD_SCREEN_ADD_TYPE = "추가할 내용을 선택해주세요.";
 }
