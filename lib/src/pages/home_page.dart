@@ -3,7 +3,8 @@ import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/components/select_dialog.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
-import 'package:memorize_wodrds/src/screen/add_screen.dart';
+import 'package:memorize_wodrds/src/screen/add_sentence_screen.dart';
+import 'package:memorize_wodrds/src/screen/add_word_screen.dart';
 import 'package:memorize_wodrds/src/screen/list_screen.dart';
 import 'package:memorize_wodrds/src/screen/search_screen.dart';
 import 'package:memorize_wodrds/src/static/images_data.dart';
@@ -13,6 +14,11 @@ enum HomeIcon {
   add,
   search,
   list,
+}
+
+enum AddType {
+  word,
+  sentence,
 }
 
 class HomePage extends StatefulWidget {
@@ -60,10 +66,17 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> navigateToAddScreen(BuildContext? context, int index) async {
     if (index == HomeIcon.add.index) {
-      await Navigator.push(
-        context!,
-        MaterialPageRoute(builder: (context) => AddScreen(selectType: selectIndex,)),
-      );
+      if (selectIndex == AddType.word.index) {
+        await Navigator.push(
+          context!,
+          MaterialPageRoute(builder: (context) => const AddWordScreen()),
+        );
+      } else {
+        await Navigator.push(
+          context!,
+          MaterialPageRoute(builder: (context) => const AddSentenceScreen()),
+        );
+      }
     } else if (index == HomeIcon.list.index) {
       await Navigator.push(
         context!,
@@ -102,16 +115,13 @@ class _HomePageState extends State<HomePage> {
                     builder:
                         (BuildContext context, AsyncSnapshot<int> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        // 로딩 중 상태에 대한 처리
                         return CircularProgressIndicator();
                       } else if (snapshot.hasError) {
-                        // 에러 발생 시에 대한 처리
                         return Text('Error: ${snapshot.error}');
                       } else {
-                        // 정상적으로 결과가 도착한 경우에 대한 처리
                         return Text(
                           '${Strings.STR_HOME_WORD_COUNT}${snapshot.data.toString()}${Strings.STR_HOME_COMMON_COUNT}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -129,10 +139,9 @@ class _HomePageState extends State<HomePage> {
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
-                        // 정상적으로 결과가 도착한 경우에 대한 처리
                         return Text(
                           '${Strings.STR_HOME_SENTENCE_COUNT}${snapshot.data.toString()}${Strings.STR_HOME_COMMON_COUNT}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -163,13 +172,14 @@ class _HomePageState extends State<HomePage> {
                                 const PopupDialog(),
                           );
 
-                          if(selectIndex == null) {
+                          if (selectIndex == null) {
                             return;
-                          }
-                          else {
+                          } else {
                             await navigateToAddScreen(context, index);
                           }
                         }
+
+                        await navigateToAddScreen(context, index);
                       },
                       child: Column(
                         children: [

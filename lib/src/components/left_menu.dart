@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/pages/home_page.dart';
-import 'package:memorize_wodrds/src/screen/add_screen.dart';
+import 'package:memorize_wodrds/src/screen/add_sentence_screen.dart';
+import 'package:memorize_wodrds/src/screen/add_word_screen.dart';
 import 'package:memorize_wodrds/src/screen/list_screen.dart';
 import 'package:memorize_wodrds/src/screen/search_screen.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
 enum HomeIcon {
   home,
-  wordAdd,
-  sentenceAdd,
+  addWord,
+  addSentence,
   search,
   list,
-}
-
-enum dataType {
-  word,
-  sentence,
 }
 
 class LeftMenu extends StatelessWidget {
@@ -51,23 +47,19 @@ class LeftMenu extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => const HomePage()),
           );
-        } else if (index == HomeIcon.sentenceAdd.index) {
+        } else if (index == HomeIcon.addWord.index) {
+          // index에 따라 화면 이동
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => AddScreen(
-                      selectType: dataType.word.index,
-                    )),
+            MaterialPageRoute(builder: (context) => const AddWordScreen()),
           );
-        } else if (index == HomeIcon.wordAdd.index) {
+        } else if (index == HomeIcon.addSentence.index) {
+          // index에 따라 화면 이동
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => AddScreen(
-                      selectType: dataType.sentence.index,
-                    )),
+            MaterialPageRoute(builder: (context) => const AddSentenceScreen()),
           );
-        } else if (index == HomeIcon.search.index) {
+        }else if (index == HomeIcon.search.index) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const SearchScreen()),
@@ -112,10 +104,9 @@ class LeftMenu extends StatelessWidget {
                 children: <Widget>[
                   buildListTile(context, Strings.STR_COMMON_HOME, 0),
                   buildListTile(context, Strings.STR_ADD_SCREEN_WORD_ADD, 1),
-                  buildListTile(
-                      context, Strings.STR_ADD_SCREEN_SENTENCE_ADD, 2),
-                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_SEARCH, 3),
-                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_LIST, 4),
+                  buildListTile(context, Strings.STR_ADD_SCREEN_SENTENCE_ADD, 2),
+                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_SEARCH, 2),
+                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_LIST, 3),
                 ],
               ),
             ),

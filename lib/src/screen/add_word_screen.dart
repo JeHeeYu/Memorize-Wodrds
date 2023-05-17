@@ -9,21 +9,14 @@ import 'package:memorize_wodrds/src/static/strings_data.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum dataType {
-  word,
-  sentence,
-}
-
-class AddScreen extends StatefulWidget {
-  final int? selectType;
-
-  const AddScreen({Key? key, required this.selectType}) : super(key: key);
+class AddWordScreen extends StatefulWidget {
+  const AddWordScreen({super.key});
 
   @override
-  State<AddScreen> createState() => _AddScreenState();
+  State<AddWordScreen> createState() => _AddWordScreenState();
 }
 
-class _AddScreenState extends State<AddScreen> {
+class _AddWordScreenState extends State<AddWordScreen> {
   // Firebase Instance
   final FirebaseManager firebaseManager = FirebaseManager();
 
@@ -50,18 +43,6 @@ class _AddScreenState extends State<AddScreen> {
     if (word.isNotEmpty && meaning.isNotEmpty) {
       data = {word: meaning};
       firebaseManager.addWord(data);
-
-      _wordController.clear();
-      _meaningController.clear();
-    }
-  }
-
-  void sentenceSaveData(String word, String meaning) {
-    Map<String, dynamic> data;
-
-    if (word.isNotEmpty && meaning.isNotEmpty) {
-      data = {word: meaning};
-      firebaseManager.addSentence(data);
 
       _wordController.clear();
       _meaningController.clear();
@@ -115,30 +96,16 @@ class _AddScreenState extends State<AddScreen> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                if (widget.selectType == dataType.word.index) {
-                  if (_wordController.text.isEmpty) {
-                    ToastDialog.showToastDialog(
-                        context, Strings.STR_ADD_SCREEN_WORD_NOT_AVAILABLE);
-                  } else if (_meaningController.text.isEmpty) {
-                    ToastDialog.showToastDialog(
-                        context, Strings.STR_ADD_SCREEN_MEANING_NOT_AVAILABLE);
-                  } else {
-                    ToastDialog.showToastDialog(
-                        context, Strings.STR_ADD_SCREEN_WORD_SAVE_SUCCESS);
-                    wordSaveData(_wordController.text, _meaningController.text);
-                  }
+                if (_wordController.text.isEmpty) {
+                  ToastDialog.showToastDialog(
+                      context, Strings.STR_ADD_SCREEN_WORD_NOT_AVAILABLE);
+                } else if (_meaningController.text.isEmpty) {
+                  ToastDialog.showToastDialog(
+                      context, Strings.STR_ADD_SCREEN_MEANING_NOT_AVAILABLE);
                 } else {
-                  if (_wordController.text.isEmpty) {
-                    ToastDialog.showToastDialog(
-                        context, Strings.STR_ADD_SCREEN_WORD_NOT_AVAILABLE);
-                  } else if (_meaningController.text.isEmpty) {
-                    ToastDialog.showToastDialog(
-                        context, Strings.STR_ADD_SCREEN_MEANING_NOT_AVAILABLE);
-                  } else {
-                    ToastDialog.showToastDialog(
-                        context, Strings.STR_ADD_SCREEN_WORD_SAVE_SUCCESS);
-                    sentenceSaveData(_wordController.text, _meaningController.text);
-                  }
+                  ToastDialog.showToastDialog(
+                      context, Strings.STR_ADD_SCREEN_WORD_SAVE_SUCCESS);
+                  wordSaveData(_wordController.text, _meaningController.text);
                 }
               },
               child: const Text(Strings.STR_COMMON_ADD),
