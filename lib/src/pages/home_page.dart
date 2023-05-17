@@ -12,6 +12,7 @@ import 'package:memorize_wodrds/src/static/strings_data.dart';
 enum HomeIcon {
   add,
   search,
+  list,
 }
 
 class HomePage extends StatefulWidget {
@@ -22,7 +23,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int documentCount = 0;
+  late int? selectIndex = 0;
+
+  final FirebaseManager firebaseManager = FirebaseManager();
 
   Widget homeWidgetImage(int index) {
     AssetImage imageAsset;
@@ -31,8 +34,8 @@ class _HomePageState extends State<HomePage> {
       imageAsset = const AssetImage(Images.IMG_HOME_ADD_BUTTON);
     } else if (index == HomeIcon.search.index) {
       imageAsset = const AssetImage(Images.IMG_HOME_SEARCH_BUTTON);
-    } else if (index == HomeIcon.add.index) {
-      imageAsset = const AssetImage(Images.IMG_HOME_ADD_BUTTON);
+    } else if (index == HomeIcon.list.index) {
+      imageAsset = const AssetImage(Images.IMG_HOME_LIST);
     } else {
       imageAsset = const AssetImage(Images.IMG_HOME_SEARCH_BUTTON);
     }
@@ -48,6 +51,8 @@ class _HomePageState extends State<HomePage> {
       return const Text(Strings.STR_HOME_WIDGET_ADD);
     } else if (index == HomeIcon.search.index) {
       return const Text(Strings.STR_HOME_WIDGET_SEARCH);
+    } else if (index == HomeIcon.list.index) {
+      return const Text(Strings.STR_HOME_WIDGET_LIST);
     } else {
       return const Text(Strings.STR_HOME_WIDGET_SEARCH);
     }
@@ -57,7 +62,12 @@ class _HomePageState extends State<HomePage> {
     if (index == HomeIcon.add.index) {
       await Navigator.push(
         context!,
-        MaterialPageRoute(builder: (context) => const AddScreen()),
+        MaterialPageRoute(builder: (context) => AddScreen(selectType: selectIndex,)),
+      );
+    } else if (index == HomeIcon.list.index) {
+      await Navigator.push(
+        context!,
+        MaterialPageRoute(builder: (context) => const ListScreen()),
       );
     } else {
       await Navigator.push(
@@ -86,21 +96,49 @@ class _HomePageState extends State<HomePage> {
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    "지금까지 알게 된 단어는 XX개 입니다.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                children: [
+                  FutureBuilder<int>(
+                    future: firebaseManager.getWordCount(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<int> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // 로딩 중 상태에 대한 처리
+                        return CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        // 에러 발생 시에 대한 처리
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        // 정상적으로 결과가 도착한 경우에 대한 처리
+                        return Text(
+                          '${Strings.STR_HOME_WORD_COUNT}${snapshot.data.toString()}${Strings.STR_HOME_COMMON_COUNT}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      }
+                    },
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    "지금까지 알게 된 문장은 XX개 입니다.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  FutureBuilder<int>(
+                    future: firebaseManager.getSentenceCount(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<int> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        // 정상적으로 결과가 도착한 경우에 대한 처리
+                        return Text(
+                          '${Strings.STR_HOME_SENTENCE_COUNT}${snapshot.data.toString()}${Strings.STR_HOME_COMMON_COUNT}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -113,17 +151,25 @@ class _HomePageState extends State<HomePage> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                 ),
-                itemCount: 2,
+                itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {
                   return GridTile(
                     child: GestureDetector(
                       onTap: () async {
-                        print("click event : $index");
-                        final int? result = await showDialog<int>(
-                          context: context,
-                          builder: (BuildContext context) => const PopupDialog(),
-                        );
-                        await navigateToAddScreen(context, index);
+                        if (index == HomeIcon.add.index) {
+                          selectIndex = await showDialog<int>(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                const PopupDialog(),
+                          );
+
+                          if(selectIndex == null) {
+                            return;
+                          }
+                          else {
+                            await navigateToAddScreen(context, index);
+                          }
+                        }
                       },
                       child: Column(
                         children: [

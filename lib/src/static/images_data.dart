@@ -4,6 +4,7 @@ class Images {
   // Hone Screen Icon
   static const String IMG_HOME_ADD_BUTTON = "assets/images/ico-add-button.png";
   static const String IMG_HOME_SEARCH_BUTTON = "assets/images/ico-search-button.png";
+  static const String IMG_HOME_LIST = "assets/images/ico-list-button.png";
 
   // Search Screen Icon
   static const String IMG_SEARCH_SCREEN_A = "assets/images/ico-add-A.png";

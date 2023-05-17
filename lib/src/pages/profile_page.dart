@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
+import 'package:memorize_wodrds/src/screen/login_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -28,7 +29,10 @@ class _ProfilePageState extends State<ProfilePage> {
             ElevatedButton(
               onPressed: () async {
                 await authenticationManager.signOut();
-
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
               child: const Text('Logout'),
             ),

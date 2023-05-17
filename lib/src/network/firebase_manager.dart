@@ -43,6 +43,32 @@ class FirebaseManager {
     }
   }
 
+  Future<void> addSentence(Map<String, dynamic> data) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+      final dataColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+
+      final wordDocSnapshot = await wordDocRef.get();
+      final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
+
+      if (wordData != null) {
+        data.addAll(wordData);
+      }
+
+      //await auto.signInWithGoogle();
+
+      await wordDocRef.set(data);
+      print('Data added');
+    } catch (e) {
+      print('Failed to add data: $e');
+    }
+  }
+
   Future<String?> readMeaning(String key) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
@@ -89,11 +115,31 @@ class FirebaseManager {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
       final userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(currentUser!.uid);
-      final dataColRef = userDocRef.collection('data');
-      final wordDocSnapshot = await dataColRef.doc('words').get();
+          FirebaseFirestore.instance.collection(Strings.STR_FIRESTORE_USERS_COLLECTION).doc(currentUser!.uid);
+      final dataColRef = userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final wordDocSnapshot = await dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD).get();
 
       final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
+      if (wordData == null) {
+        return 0;
+      } else {
+        return wordData.length;
+      }
+    } catch (e) {
+      print('Failed to get data: $e');
+      return 0;
+    }
+  }
+
+    Future<int> getSentenceCount() async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef =
+          FirebaseFirestore.instance.collection(Strings.STR_FIRESTORE_USERS_COLLECTION).doc(currentUser!.uid);
+      final dataColRef = userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final sentenceDocSnapshot = await dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED).get();
+
+      final wordData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
       if (wordData == null) {
         return 0;
       } else {

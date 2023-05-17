@@ -48,7 +48,7 @@ class ListScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, // 가로 방향에 표시할 개수
             crossAxisSpacing: 30.0, // 이미지 간 가로 간격
             mainAxisSpacing: 70.0, // 이미지 간 세로 간격
@@ -57,7 +57,6 @@ class ListScreen extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final random = Random();
             final angle = random.nextInt(41) - 20;
-            print("Jehee : ${imagesPath[index]}");
             return Transform.rotate(
               angle: angle * pi / 180,
               child: Image.asset(

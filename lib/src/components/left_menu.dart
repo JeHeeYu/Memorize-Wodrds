@@ -7,9 +7,15 @@ import 'package:memorize_wodrds/src/static/strings_data.dart';
 
 enum HomeIcon {
   home,
-  add,
+  wordAdd,
+  sentenceAdd,
   search,
   list,
+}
+
+enum dataType {
+  word,
+  sentence,
 }
 
 class LeftMenu extends StatelessWidget {
@@ -45,14 +51,23 @@ class LeftMenu extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => const HomePage()),
           );
-        } else if (index == HomeIcon.add.index) {
-          // index에 따라 화면 이동
+        } else if (index == HomeIcon.sentenceAdd.index) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const AddScreen()),
+            MaterialPageRoute(
+                builder: (context) => AddScreen(
+                      selectType: dataType.word.index,
+                    )),
           );
-        }
-        else if (index == HomeIcon.search.index) {
+        } else if (index == HomeIcon.wordAdd.index) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddScreen(
+                      selectType: dataType.sentence.index,
+                    )),
+          );
+        } else if (index == HomeIcon.search.index) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const SearchScreen()),
@@ -97,8 +112,10 @@ class LeftMenu extends StatelessWidget {
                 children: <Widget>[
                   buildListTile(context, Strings.STR_COMMON_HOME, 0),
                   buildListTile(context, Strings.STR_ADD_SCREEN_WORD_ADD, 1),
-                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_SEARCH, 2),
-                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_LIST, 3),
+                  buildListTile(
+                      context, Strings.STR_ADD_SCREEN_SENTENCE_ADD, 2),
+                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_SEARCH, 3),
+                  buildListTile(context, Strings.STR_ADD_SCREEN_WORD_LIST, 4),
                 ],
               ),
             ),
