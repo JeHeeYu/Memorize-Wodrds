@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<void> navigateToAddScreen(BuildContext? context, int index) async {
+  Future<void> navigateToScreen(BuildContext? context, int index) async {
     if (index == HomeIcon.add.index) {
       if (selectIndex == AddType.word.index) {
         await Navigator.push(
@@ -175,11 +175,12 @@ class _HomePageState extends State<HomePage> {
                           if (selectIndex == null) {
                             return;
                           } else {
-                            await navigateToAddScreen(context, index);
+                            await navigateToScreen(context, index);
                           }
                         }
-
-                        await navigateToAddScreen(context, index);
+                        else {
+                          await navigateToScreen(context, index);
+                        }
                       },
                       child: Column(
                         children: [
