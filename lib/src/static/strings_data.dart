@@ -25,6 +25,10 @@ class Strings {
   static const String STR_HOME_SENTENCE_COUNT = "지금까지 알게 된 문장은 ";
   static const String STR_HOME_COMMON_COUNT = " 개 입니다.";
 
+  static const String STR_HOME_HELLO_START_TEXT = "안녕하세요, ";
+  static const String STR_HOME_HELLO_END_TEXT = "님";
+  static const String STR_HOME_WELLCOME_TEXT = "환영합니다.";
+
   // Add Screen
   static const String STR_ADD_SCREEN_WORD_ADD = "단어 추가하기";
   static const String STR_ADD_SCREEN_SENTENCE_ADD = "문장 추가하기";

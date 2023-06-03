@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/components/select_dialog.dart';
+import 'package:memorize_wodrds/src/components/border_radius_widget.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
 import 'package:memorize_wodrds/src/screen/add_sentence_screen.dart';
 import 'package:memorize_wodrds/src/screen/add_word_screen.dart';
@@ -90,111 +92,253 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  String getCurrentDate() {
+    var now = DateTime.now();
+    var formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(now);
+  }
+
   @override
   Widget build(BuildContext context) {
+    String currentDate = getCurrentDate();
+
     return Scaffold(
       appBar: const AppBarWidget(
         title: Strings.STR_COMMON_HOME,
       ),
       drawer: const LeftMenu(),
-      body: Column(
-        children: [
-          Container(
-            height: 100,
-            margin: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xFFF3F6FB),
+      //backgroundColor: Colors.grey,
+      body: Container(
+        margin: const EdgeInsets.only(top: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    currentDate,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 5),
+                const Image(
+                  image: AssetImage(Images.IMG_ARROW_BOTTOM),
+                  width: 15,
+                  height: 10,
+                ),
+              ],
             ),
-            child: Center(
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  FutureBuilder<int>(
-                    future: firebaseManager.getWordCount(),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  FutureBuilder<String?>(
+                    future: firebaseManager.getUserName(),
+                    builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return Text(
-                          '${Strings.STR_HOME_WORD_COUNT}${snapshot.data.toString()}${Strings.STR_HOME_COMMON_COUNT}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasData) {
+                        String userName = snapshot.data ?? '';
+
+                        TextStyle userNameStyle = const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        );
+
+                        TextStyle textStyle = const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        );
+
+                        return RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: Strings.STR_HOME_HELLO_START_TEXT,
+                                  style: textStyle),
+                              TextSpan(text: userName, style: userNameStyle),
+                              TextSpan(
+                                  text: Strings.STR_HOME_HELLO_END_TEXT,
+                                  style: textStyle),
+                              const TextSpan(text: '\n'),
+                              TextSpan(
+                                  text: Strings.STR_HOME_WELLCOME_TEXT,
+                                  style: textStyle),
+                            ],
                           ),
                         );
                       }
+                      return const SizedBox();
                     },
                   ),
-                  SizedBox(height: 10),
-                  FutureBuilder<int>(
-                    future: firebaseManager.getSentenceCount(),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<int> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return Text(
-                          '${Strings.STR_HOME_SENTENCE_COUNT}${snapshot.data.toString()}${Strings.STR_HOME_COMMON_COUNT}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                  Stack(
+                    children: [
+                      const Image(
+                        image: AssetImage(Images.IMG_BG_RADIUS_WHITE),
+                      ),
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: FutureBuilder<int>(
+                            future: firebaseManager.getWordCount(),
+                            builder: (context, wordSnapshot) {
+                              if (wordSnapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return CircularProgressIndicator();
+                              } else if (wordSnapshot.hasData) {
+                                int wordCount = wordSnapshot.data ?? 0;
+
+                                return FutureBuilder<int>(
+                                  future: firebaseManager.getSentenceCount(),
+                                  builder: (context, sentenceSnapshot) {
+                                    if (sentenceSnapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    } else if (sentenceSnapshot.hasData) {
+                                      int sentenceCount =
+                                          sentenceSnapshot.data ?? 0;
+
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            '${Strings.STR_HOME_WORD_COUNT}${wordCount.toString()}${Strings.STR_HOME_COMMON_COUNT}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            '${Strings.STR_HOME_SENTENCE_COUNT}${sentenceCount.toString()}${Strings.STR_HOME_COMMON_COUNT}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    return const SizedBox(); // 데이터가 없을 때는 빈 컨테이너 반환
+                                  },
+                                );
+                              }
+                              return const SizedBox(); // 데이터가 없을 때는 빈 컨테이너 반환
+                            },
                           ),
-                        );
-                      }
-                    },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              const Image(
+                                image: AssetImage(Images.IMG_BG_RADIUS_WHITE),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  selectIndex = 0;
+                                  await navigateToScreen(
+                                      context, HomeIcon.add.index);
+                                },
+                              ),
+                              Positioned.fill(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        Strings.STR_ADD_SCREEN_WORD_ADD,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Image(
+                                        image:
+                                            AssetImage(Images.IMG_ARROW_RIGHT),
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              const Image(
+                                image: AssetImage(Images.IMG_BG_RADIUS_WHITE),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  selectIndex = 1;
+                                  await navigateToScreen(
+                                      context, HomeIcon.add.index);
+                                },
+                              ),
+                              Positioned.fill(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        Strings.STR_ADD_SCREEN_SENTENCE_ADD,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Image(
+                                        image:
+                                            AssetImage(Images.IMG_ARROW_RIGHT),
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                ),
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return GridTile(
-                    child: GestureDetector(
-                      onTap: () async {
-                        if (index == HomeIcon.add.index) {
-                          selectIndex = await showDialog<int>(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                const PopupDialog(),
-                          );
-
-                          if (selectIndex == null) {
-                            return;
-                          } else {
-                            await navigateToScreen(context, index);
-                          }
-                        }
-                        else {
-                          await navigateToScreen(context, index);
-                        }
-                      },
-                      child: Column(
-                        children: [
-                          homeWidgetImage(index),
-                          homeWidgetString(index),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+            const BorderRadiusStack(
+              imageAsset: Images.IMG_BG_RADIUS_WHITE,
+              text: Strings.STR_ADD_SCREEN_SENTENCE_ADD,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -34,4 +34,7 @@ class Images {
   static const String IMG_SEARCH_SCREEN_Y = "assets/images/ico-add-Y.png";
   static const String IMG_SEARCH_SCREEN_Z = "assets/images/ico-add-Z.png";
 
+  static const String IMG_BG_RADIUS_WHITE = "assets/images/bg-radius-white.png";
+  static const String IMG_ARROW_BOTTOM = "assets/images/ico-arrow-bottom.png";
+  static const String IMG_ARROW_RIGHT = "assets/images/ico-arrow-right.png";
 }

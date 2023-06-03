@@ -17,6 +17,28 @@ class FirebaseManager {
 
   Future<void> _initialize() async {}
 
+    Future<String?> getUserName() async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+
+      final userDocSnapshot = await userDocRef.get();
+      final userData = userDocSnapshot.data() as Map<String, dynamic>?;
+
+      if (userData != null && userData.containsKey("name")) {
+        return userData["name"];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Failed to get user data: $e');
+      return null;
+    }
+  }
+
+
   Future<void> addWord(Map<String, dynamic> data) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
