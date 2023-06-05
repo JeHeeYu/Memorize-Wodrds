@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
+import 'package:memorize_wodrds/src/components/schedule_dialog.dart';
 import 'package:memorize_wodrds/src/components/select_dialog.dart';
 import 'package:memorize_wodrds/src/components/border_radius_widget.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
@@ -100,8 +101,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String currentDate = getCurrentDate();
-
     return Scaffold(
       appBar: const AppBarWidget(
         title: Strings.STR_COMMON_HOME,
@@ -115,13 +114,17 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    currentDate,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                InkWell(
+                  onTap: () {
+                    ScheduleDialog.show(context);
+                  },
+                  child: Container(
+                    child: Text(
+                      getCurrentDate(),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -250,35 +253,38 @@ class _HomePageState extends State<HomePage> {
                               const Image(
                                 image: AssetImage(Images.IMG_BG_RADIUS_WHITE),
                               ),
-                              GestureDetector(
-                                onTap: () async {
-                                  selectIndex = 0;
-                                  await navigateToScreen(
-                                      context, HomeIcon.add.index);
-                                },
-                              ),
                               Positioned.fill(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        Strings.STR_ADD_SCREEN_WORD_ADD,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                child: InkWell(
+                                  onTap: () async {
+                                    setState(() {
+                                      selectIndex = 0;
+                                    });
+                                    await navigateToScreen(
+                                        context, HomeIcon.add.index);
+                                  },
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          Strings.STR_ADD_SCREEN_WORD_ADD,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(width: 5),
-                                      Image(
-                                        image:
-                                            AssetImage(Images.IMG_ARROW_RIGHT),
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                    ],
+                                        SizedBox(width: 5),
+                                        Image(
+                                          image: AssetImage(
+                                              Images.IMG_ARROW_RIGHT),
+                                          width: 20,
+                                          height: 20,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -292,35 +298,38 @@ class _HomePageState extends State<HomePage> {
                               const Image(
                                 image: AssetImage(Images.IMG_BG_RADIUS_WHITE),
                               ),
-                              GestureDetector(
-                                onTap: () async {
-                                  selectIndex = 1;
-                                  await navigateToScreen(
-                                      context, HomeIcon.add.index);
-                                },
-                              ),
                               Positioned.fill(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        Strings.STR_ADD_SCREEN_SENTENCE_ADD,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                child: InkWell(
+                                  onTap: () async {
+                                    setState(() {
+                                      selectIndex = 1;
+                                    });
+                                    await navigateToScreen(
+                                        context, HomeIcon.add.index);
+                                  },
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          Strings.STR_ADD_SCREEN_SENTENCE_ADD,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(width: 5),
-                                      Image(
-                                        image:
-                                            AssetImage(Images.IMG_ARROW_RIGHT),
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                    ],
+                                        SizedBox(width: 5),
+                                        Image(
+                                          image: AssetImage(
+                                              Images.IMG_ARROW_RIGHT),
+                                          width: 20,
+                                          height: 20,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
