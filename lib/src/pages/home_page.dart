@@ -106,7 +106,6 @@ class _HomePageState extends State<HomePage> {
         title: Strings.STR_COMMON_HOME,
       ),
       drawer: const LeftMenu(),
-      //backgroundColor: Colors.grey,
       body: Container(
         margin: const EdgeInsets.only(top: 20),
         child: Column(
@@ -191,8 +190,8 @@ class _HomePageState extends State<HomePage> {
                       Positioned.fill(
                         child: Align(
                           alignment: Alignment.center,
-                          child: FutureBuilder<int>(
-                            future: firebaseManager.getWordCount(),
+                          child: StreamBuilder<int>(
+                            stream: firebaseManager.getWordCount(),
                             builder: (context, wordSnapshot) {
                               if (wordSnapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -200,8 +199,8 @@ class _HomePageState extends State<HomePage> {
                               } else if (wordSnapshot.hasData) {
                                 int wordCount = wordSnapshot.data ?? 0;
 
-                                return FutureBuilder<int>(
-                                  future: firebaseManager.getSentenceCount(),
+                                return StreamBuilder<int>(
+                                  stream: firebaseManager.getSentenceCount(),
                                   builder: (context, sentenceSnapshot) {
                                     if (sentenceSnapshot.connectionState ==
                                         ConnectionState.waiting) {

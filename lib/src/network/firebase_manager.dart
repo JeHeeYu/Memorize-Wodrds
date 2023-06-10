@@ -96,7 +96,7 @@ class FirebaseManager {
     final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
 
     if (wordData != null) {
-      wordData[word] = newMeaning; // Update the meaning for the given word
+      wordData[word] = newMeaning;
       await wordDocRef.set(wordData);
     }
   } catch (e) {
@@ -142,7 +142,7 @@ class FirebaseManager {
     final sentenceData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
 
     if (sentenceData != null) {
-      sentenceData[sentence] = newMeaning; // Update the meaning for the given word
+      sentenceData[sentence] = newMeaning;
       await sentenceDocRef.set(sentenceData);
     }
   } catch (e) {
@@ -192,51 +192,45 @@ class FirebaseManager {
     }
   }
 
-  Future<int> getWordCount() async {
-    try {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      final userDocRef = FirebaseFirestore.instance
-          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
-          .doc(currentUser!.uid);
-      final dataColRef =
-          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-      final wordDocSnapshot =
-          await dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD).get();
+  Stream<int> getWordCount() {
+  final currentUser = FirebaseAuth.instance.currentUser;
+  final userDocRef = FirebaseFirestore.instance
+      .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+      .doc(currentUser!.uid);
+  final dataColRef =
+      userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+  final wordDocRef =
+      dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD);
 
-      final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
-      if (wordData == null) {
-        return 0;
-      } else {
-        return wordData.length;
-      }
-    } catch (e) {
-      print('Failed to get data: $e');
+  return wordDocRef.snapshots().map((snapshot) {
+    final wordData = snapshot.data() as Map<String, dynamic>?;
+    if (wordData == null) {
       return 0;
+    } else {
+      return wordData.length;
     }
-  }
+  });
+}
 
-  Future<int> getSentenceCount() async {
-    try {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      final userDocRef = FirebaseFirestore.instance
-          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
-          .doc(currentUser!.uid);
-      final dataColRef =
-          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-      final sentenceDocSnapshot =
-          await dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED).get();
+  Stream<int> getSentenceCount() {
+  final currentUser = FirebaseAuth.instance.currentUser;
+  final userDocRef = FirebaseFirestore.instance
+      .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+      .doc(currentUser!.uid);
+  final dataColRef =
+      userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+  final wordDocRef =
+      dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
 
-      final wordData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
-      if (wordData == null) {
-        return 0;
-      } else {
-        return wordData.length;
-      }
-    } catch (e) {
-      print('Failed to get data: $e');
+  return wordDocRef.snapshots().map((snapshot) {
+    final wordData = snapshot.data() as Map<String, dynamic>?;
+    if (wordData == null) {
       return 0;
+    } else {
+      return wordData.length;
     }
-  }
+  });
+}
 
   Future<List<String>> searchWords(String query) async {
     try {

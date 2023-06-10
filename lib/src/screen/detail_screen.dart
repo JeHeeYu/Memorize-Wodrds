@@ -74,9 +74,6 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset : false,
-      appBar: const AppBarWidget(
-        title: Strings.STR_COMMON_HOME,
-      ),
       body: Column(
         children: [
           Padding(

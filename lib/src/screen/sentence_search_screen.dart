@@ -49,9 +49,12 @@ class _SentenceSearchScreenState extends State<SentenceSearchScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            SearchBarWidget(
-              onSearch: _handleSearch,
-              controller: _controller,
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: SearchBarWidget(
+                onSearch: _handleSearch,
+                controller: _controller,
+              ),
             ),
             Expanded(
               child: Padding(
