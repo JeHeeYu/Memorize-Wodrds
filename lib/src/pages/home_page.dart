@@ -214,20 +214,67 @@ class _HomePageState extends State<HomePage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            '${Strings.STR_HOME_WORD_COUNT}${wordCount.toString()}${Strings.STR_HOME_COMMON_COUNT}',
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Text(
+                                                Strings.STR_HOME_WORD_COUNT,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Text(
+                                                wordCount.toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                              const Text(
+                                                Strings.STR_HOME_COMMON_COUNT,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            '${Strings.STR_HOME_SENTENCE_COUNT}${sentenceCount.toString()}${Strings.STR_HOME_COMMON_COUNT}',
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Text(
+                                                Strings.STR_HOME_SENTENCE_COUNT,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Text(
+                                                sentenceCount.toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color:
+                                                      Colors.blue,
+                                                ),
+                                              ),
+                                              const Text(
+                                                Strings.STR_HOME_COMMON_COUNT,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       );
