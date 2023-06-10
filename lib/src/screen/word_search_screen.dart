@@ -6,6 +6,8 @@ import 'package:memorize_wodrds/src/network/firebase_manager.dart';
 import 'package:memorize_wodrds/src/screen/detail_screen.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
+import '../static/common_data.dart';
+
 class WordSearchScreen extends StatefulWidget {
   const WordSearchScreen({Key? key}) : super(key: key);
 
@@ -34,7 +36,7 @@ class _WordSearchScreenState extends State<WordSearchScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DetailScreen(text: word, meaning: meaning),
+        builder: (context) => DetailScreen(text: word, meaning: meaning, type: Common.wordType),
       ),
     );
   }

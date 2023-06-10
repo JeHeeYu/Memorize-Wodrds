@@ -82,6 +82,28 @@ class FirebaseManager {
     }
   }
 
+  Future<void> editWordMeaning(String word, String newMeaning) async {
+  try {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final userDocRef = FirebaseFirestore.instance
+        .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+        .doc(currentUser!.uid);
+    final dataColRef =
+        userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+    final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD);
+
+    final wordDocSnapshot = await wordDocRef.get();
+    final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
+
+    if (wordData != null) {
+      wordData[word] = newMeaning; // Update the meaning for the given word
+      await wordDocRef.set(wordData);
+    }
+  } catch (e) {
+    print('Failed to edit meaning: $e');
+  }
+}
+
   Future<void> addSentence(Map<String, dynamic> data) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
@@ -90,21 +112,43 @@ class FirebaseManager {
           .doc(currentUser!.uid);
       final dataColRef =
           userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-      final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+      final sentenceDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
 
-      final wordDocSnapshot = await wordDocRef.get();
-      final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
+      final sentenceDocSnapshot = await sentenceDocRef.get();
+      final sentencedData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
 
-      if (wordData != null) {
-        data.addAll(wordData);
+      if (sentencedData != null) {
+        data.addAll(sentencedData);
       }
 
-      await wordDocRef.set(data);
+      await sentenceDocRef.set(data);
       print('Data added');
     } catch (e) {
       print('Failed to add data: $e');
     }
   }
+
+    Future<void> editSentenceMeaning(String sentence, String newMeaning) async {
+  try {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final userDocRef = FirebaseFirestore.instance
+        .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+        .doc(currentUser!.uid);
+    final dataColRef =
+        userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+    final sentenceDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+
+    final sentenceDocSnapshot = await sentenceDocRef.get();
+    final sentenceData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
+
+    if (sentenceData != null) {
+      sentenceData[sentence] = newMeaning; // Update the meaning for the given word
+      await sentenceDocRef.set(sentenceData);
+    }
+  } catch (e) {
+    print('Failed to edit meaning: $e');
+  }
+}
 
   Future<String?> readMeaning(String key) async {
     try {
@@ -262,6 +306,53 @@ class FirebaseManager {
     } catch (e) {
       print('Failed to get data: $e');
       return null;
+    }
+  }
+
+    Future<void> deleteWord(String wordKey) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+      final dataColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD);
+
+      final wordDocSnapshot = await wordDocRef.get();
+      final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
+
+      if (wordData != null && wordData.containsKey(wordKey)) {
+        wordData.remove(wordKey);
+        await wordDocRef.set(wordData);
+        print('Word deleted');
+      }
+    } catch (e) {
+      print('Failed to delete word: $e');
+    }
+  }
+
+  Future<void> deleteSentence(String sentenceKey) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+      final dataColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final sentenceDocRef =
+          dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+
+      final sentenceDocSnapshot = await sentenceDocRef.get();
+      final sentenceData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
+
+      if (sentenceData != null && sentenceData.containsKey(sentenceKey)) {
+        sentenceData.remove(sentenceKey);
+        await sentenceDocRef.set(sentenceData);
+        print('Sentence deleted');
+      }
+    } catch (e) {
+      print('Failed to delete sentence: $e');
     }
   }
 }

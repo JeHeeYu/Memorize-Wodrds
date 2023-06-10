@@ -35,7 +35,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           onPressed: () {
             widget.onSearch(widget.controller.text);
           },
-        ),
+        ),  
       ),
       onChanged: widget.onSearch,
     );

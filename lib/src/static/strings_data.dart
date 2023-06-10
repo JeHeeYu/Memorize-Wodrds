@@ -2,7 +2,7 @@
 
 class Strings {
   // Common
-  static const String STR_COMMON_WODRD = "단어";
+  static const String STR_COMMON_WORD = "단어";
   static const String STR_COMMON_SENTENCE = "문장";
   static const String STR_COMMON_MEANING = "뜻";
   static const String STR_COMMON_ADD = "추가";
@@ -10,6 +10,9 @@ class Strings {
   static const String STR_COMMON_MENU = "메뉴";
   static const String STR_COMMON_OK = "확인";
   static const String STR_COMMON_CANCEL = "취소";
+
+  static const String STR_COMMON_EDIT = "수정하기";
+  static const String STR_COMMON_DELETE = "삭제하기";
   
 
   // Bottom Navigation
@@ -45,6 +48,11 @@ class Strings {
   // Search Screen
   static const String STR_ADD_SCREEN_WORD_SEARCH = "단어 검색하기";
   static const String STR_ADD_SEARCH_HINT = "검색할 내용을 입력하세요.";
+
+  static const String STR_DELETE_QUESTION = "정말로 삭제 하시겠습니까?";
+
+  static const String STR_WORD_DELETE_SUCCESS = "단어가 정상적으로 삭제되었습니다.";
+  static const String STR_SENTENCE_DELETE_SUCCESS = "문장이 정상적으로 삭제되었습니다.";
 
   // List Screen
   static const String STR_ADD_SCREEN_WORD_LIST = "단어 보기";

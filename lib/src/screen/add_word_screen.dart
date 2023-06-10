@@ -65,7 +65,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
               autofocus: true,
               controller: _wordController,
               decoration: InputDecoration(
-                labelText: Strings.STR_COMMON_WODRD,
+                labelText: Strings.STR_COMMON_WORD,
                 suffixIcon: Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: IconButton(

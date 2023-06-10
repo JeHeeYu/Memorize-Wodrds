@@ -65,7 +65,7 @@ class _AddSentenceScreenState extends State<AddSentenceScreen> {
               autofocus: true,
               controller: _sentenceController,
               decoration: InputDecoration(
-                labelText: Strings.STR_COMMON_WODRD,
+                labelText: Strings.STR_COMMON_WORD,
                 suffixIcon: Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: IconButton(

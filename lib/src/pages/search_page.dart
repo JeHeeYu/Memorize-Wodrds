@@ -41,7 +41,7 @@ class _SearchPageState extends State<SearchPage>
             tabs: const [
               Tab(
                 child: Text(
-                  Strings.STR_COMMON_WODRD,
+                  Strings.STR_COMMON_WORD,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
