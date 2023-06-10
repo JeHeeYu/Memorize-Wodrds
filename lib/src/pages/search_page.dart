@@ -3,6 +3,7 @@ import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/screen/word_search_screen.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
+import '../components/left_menu.dart';
 import '../screen/sentence_search_screen.dart';
 
 class SearchPage extends StatefulWidget {
@@ -34,6 +35,7 @@ class _SearchPageState extends State<SearchPage>
       appBar: const AppBarWidget(
         title: Strings.STR_HOME_WIDGET_SEARCH,
       ),
+      drawer: const LeftMenu(),
       body: Column(
         children: [
           TabBar(

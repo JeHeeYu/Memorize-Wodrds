@@ -3,6 +3,7 @@ import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
 import 'package:memorize_wodrds/src/screen/login_screen.dart';
 
 import '../components/app_bar_widget.dart';
+import '../components/left_menu.dart';
 import '../network/firebase_manager.dart';
 import '../static/images_data.dart';
 import '../static/strings_data.dart';
@@ -27,8 +28,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: Strings.STR_COMMON_HOME,
+        title: Strings.STR_PROFILE_MENU,
       ),
+      drawer: const LeftMenu(),
       body: Container(
         child: Column(
           children: [

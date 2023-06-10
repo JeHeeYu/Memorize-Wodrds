@@ -33,6 +33,7 @@ class Strings {
   static const String STR_HOME_WELLCOME_TEXT = "환영합니다.";
 
   // Profile
+  static const String STR_PROFILE_MENU = "계정 관리";
   static const String STR_PROFILE_CURRENT_ACCOUNT = "현재 로그인된 계정";
   static const String STR_PROFILE_SIGN_OUT = "로그아웃 하기";
 
