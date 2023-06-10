@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:memorize_wodrds/src/static/strings_data.dart';
 
-class SearchBarWidget extends StatelessWidget {
+class SearchBarWidget extends StatefulWidget {
   final ValueChanged<String> onSearch;
   final TextEditingController controller;
 
@@ -11,20 +12,32 @@ class SearchBarWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _SearchBarWidgetState createState() => _SearchBarWidgetState();
+}
+
+class _SearchBarWidgetState extends State<SearchBarWidget> {
+  @override
+  void initState() {
+    super.initState();
+    
+    widget.onSearch(widget.controller.text);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      autofocus: true,
-      controller: controller,
+      autofocus: false,
+      controller: widget.controller,
       decoration: InputDecoration(
-        hintText: 'Search',
+        hintText: Strings.STR_ADD_SEARCH_HINT,
         suffixIcon: IconButton(
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.search),
           onPressed: () {
-            onSearch(controller.text);
+            widget.onSearch(widget.controller.text);
           },
         ),
       ),
-      onChanged: onSearch,
+      onChanged: widget.onSearch,
     );
   }
 }

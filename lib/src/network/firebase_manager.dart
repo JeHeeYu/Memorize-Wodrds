@@ -195,7 +195,7 @@ class FirebaseManager {
     }
   }
 
-  Future<Map<String, String>?> getMeanings(List<String> words) async {
+  Future<List<String>> searchSentences(String query) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
       final userDocRef = FirebaseFirestore.instance
@@ -203,7 +203,29 @@ class FirebaseManager {
           .doc(currentUser!.uid);
       final dataColRef =
           userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-      final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD);
+      final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+      final wordDocSnapshot = await wordDocRef.get();
+      final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
+      final matchingWords = wordData?.keys
+          .where((word) =>
+              word.toLowerCase().startsWith(query.toLowerCase().trim()))
+          .toList();
+      return matchingWords ?? [];
+    } catch (e) {
+      print('Failed to search words: $e');
+      return [];
+    }
+  }
+
+  Future<Map<String, String>?> getMeanings(List<String> words, String dataType) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+      final dataColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final wordDocRef = dataColRef.doc(dataType);
       final wordDocSnapshot = await wordDocRef.get();
       final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
       Map<String, String> meanings = {};

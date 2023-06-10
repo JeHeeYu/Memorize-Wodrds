@@ -4,18 +4,18 @@ import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
-class WordScreen extends StatefulWidget {
-  final String word;
+class DetailScreen extends StatefulWidget {
+  final String text;
   final String meaning;
 
-  const WordScreen({Key? key, required this.word, required this.meaning})
+  const DetailScreen({Key? key, required this.text, required this.meaning})
       : super(key: key);
 
   @override
-  _WordScreenState createState() => _WordScreenState();
+  _DetailScreenState createState() => _DetailScreenState();
 }
 
-class _WordScreenState extends State<WordScreen> {
+class _DetailScreenState extends State<DetailScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
   @override
@@ -25,7 +25,7 @@ class _WordScreenState extends State<WordScreen> {
   }
 
   Future<void> _speak() async {
-    await flutterTts.speak(widget.word);
+    await flutterTts.speak(widget.text);
   }
 
   @override
@@ -40,7 +40,7 @@ class _WordScreenState extends State<WordScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              widget.word,
+              widget.text,
               style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),

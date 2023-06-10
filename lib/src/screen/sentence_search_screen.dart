@@ -3,25 +3,25 @@ import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/components/search_bar_widget.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
-import 'package:memorize_wodrds/src/screen/word_screen.dart';
+import 'package:memorize_wodrds/src/screen/detail_screen.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+class SentenceSearchScreen extends StatefulWidget {
+  const SentenceSearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  _SentenceSearchScreenState createState() => _SentenceSearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SentenceSearchScreenState extends State<SentenceSearchScreen> {
   final FirebaseManager firebaseManager = FirebaseManager();
   final _controller = TextEditingController();
   List<String> _searchResults = [];
   Map<String, String> _meanings = {};
 
   void _handleSearch(String query) {
-    firebaseManager.searchWords(query).then((results) {
-      firebaseManager.getMeanings(results).then((meanings) {
+    firebaseManager.searchSentences(query).then((results) {
+      firebaseManager.getMeanings(results, Strings.STR_FIRESTORE_SENTENCES_FILED).then((meanings) {
         setState(() {
           _searchResults = results;
           _meanings = meanings ?? {};
@@ -30,11 +30,11 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  void _showWordScreen(String word, String meaning) {
+  void _showDetailScreen(String sentence, String meaning) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => WordScreen(word: word, meaning: meaning),
+        builder: (context) => DetailScreen(text: sentence, meaning: meaning),
       ),
     );
   }
@@ -42,9 +42,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(
-        title: Strings.STR_ADD_SCREEN_WORD_SEARCH,
-      ),
       drawer: const LeftMenu(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -99,11 +96,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       subtitle: Text(_meanings[result] ?? ''),
                       onTap: () {
-                        final selectedWord = _searchResults[index];
-                        final selectedMeaning = _meanings[selectedWord];
-                        print('Selected word: $selectedWord');
-                        print('Selected meaning: $selectedMeaning');
-                        _showWordScreen(selectedWord.toString(),
+                        final selectedSentence = _searchResults[index];
+                        final selectedMeaning = _meanings[selectedSentence];
+                        _showDetailScreen(selectedSentence.toString(),
                             selectedMeaning.toString());
                       },
                     );

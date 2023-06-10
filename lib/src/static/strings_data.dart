@@ -40,6 +40,7 @@ class Strings {
 
   // Search Screen
   static const String STR_ADD_SCREEN_WORD_SEARCH = "단어 검색하기";
+  static const String STR_ADD_SEARCH_HINT = "검색할 내용을 입력하세요.";
 
   // List Screen
   static const String STR_ADD_SCREEN_WORD_LIST = "단어 보기";

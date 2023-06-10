@@ -3,7 +3,7 @@ import 'package:memorize_wodrds/src/pages/home_page.dart';
 import 'package:memorize_wodrds/src/screen/add_sentence_screen.dart';
 import 'package:memorize_wodrds/src/screen/add_word_screen.dart';
 import 'package:memorize_wodrds/src/screen/list_screen.dart';
-import 'package:memorize_wodrds/src/screen/search_screen.dart';
+import 'package:memorize_wodrds/src/screen/word_search_screen.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
 enum HomeIcon {
@@ -62,7 +62,7 @@ class LeftMenu extends StatelessWidget {
         }else if (index == HomeIcon.search.index) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SearchScreen()),
+            MaterialPageRoute(builder: (context) => const WordSearchScreen()),
           );
         } else if (index == HomeIcon.list.index) {
           Navigator.push(
