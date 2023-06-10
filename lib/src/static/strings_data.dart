@@ -32,6 +32,8 @@ class Strings {
   static const String STR_HOME_HELLO_END_TEXT = "님";
   static const String STR_HOME_WELLCOME_TEXT = "환영합니다.";
 
+  static const String STR_HOME_BACK_KEY_TOAST_MESSAGE = "한 번 더 누르면 종료됩니다.";
+
   // Profile
   static const String STR_PROFILE_MENU = "계정 관리";
   static const String STR_PROFILE_CURRENT_ACCOUNT = "현재 로그인된 계정";
