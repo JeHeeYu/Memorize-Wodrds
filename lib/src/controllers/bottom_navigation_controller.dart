@@ -8,13 +8,15 @@ class BottomNavigationController extends StatefulWidget {
   const BottomNavigationController({super.key});
 
   @override
-  State<BottomNavigationController> createState() => _BottomNavigationControllerState();
+  State<BottomNavigationController> createState() =>
+      _BottomNavigationControllerState();
 }
 
-class _BottomNavigationControllerState extends State<BottomNavigationController> {
+class _BottomNavigationControllerState
+    extends State<BottomNavigationController> {
   int _selectIndex = 0;
 
-  final List<Widget> _pages = <Widget> [
+  final List<Widget> _pages = <Widget>[
     const HomePage(),
     const SearchPage(),
     const ProfilePage(),
@@ -23,8 +25,6 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
   void _onBottomTapped(int index) {
     setState(() {
       _selectIndex = index;
-
-      print("selectIndex : ${_selectIndex}");
     });
   }
 
@@ -44,14 +44,21 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
             label: Strings.STR_BOTTOM_TAB_HOME,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.image_search),
+            icon: Icon(Icons.search),
             label: Strings.STR_BOTTOM_TAB_SEARCH,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings_rounded),
+            icon: Icon(Icons.account_circle),
             label: Strings.STR_BOTTOM_TAB_PROFILE,
           ),
         ],
+        selectedLabelStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 14,
+        ),
       ),
     );
   }

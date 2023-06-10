@@ -17,7 +17,7 @@ class FirebaseManager {
 
   Future<void> _initialize() async {}
 
-    Future<String?> getUserName() async {
+  Future<String?> getUserName() async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
       final userDocRef = FirebaseFirestore.instance
@@ -38,6 +38,26 @@ class FirebaseManager {
     }
   }
 
+  Future<String?> getUserEmail() async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+
+      final userDocSnapshot = await userDocRef.get();
+      final userData = userDocSnapshot.data() as Map<String, dynamic>?;
+
+      if (userData != null && userData.containsKey("email")) {
+        return userData["email"];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Failed to get user data: $e');
+      return null;
+    }
+  }
 
   Future<void> addWord(Map<String, dynamic> data) async {
     try {
@@ -56,10 +76,7 @@ class FirebaseManager {
         data.addAll(wordData);
       }
 
-      //await auto.signInWithGoogle();
-
       await wordDocRef.set(data);
-      print('Data added');
     } catch (e) {
       print('Failed to add data: $e');
     }
@@ -81,8 +98,6 @@ class FirebaseManager {
       if (wordData != null) {
         data.addAll(wordData);
       }
-
-      //await auto.signInWithGoogle();
 
       await wordDocRef.set(data);
       print('Data added');
@@ -136,10 +151,13 @@ class FirebaseManager {
   Future<int> getWordCount() async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
-      final userDocRef =
-          FirebaseFirestore.instance.collection(Strings.STR_FIRESTORE_USERS_COLLECTION).doc(currentUser!.uid);
-      final dataColRef = userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-      final wordDocSnapshot = await dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD).get();
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+      final dataColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final wordDocSnapshot =
+          await dataColRef.doc(Strings.STR_FIRESTORE_WORDS_FIELD).get();
 
       final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
       if (wordData == null) {
@@ -153,13 +171,16 @@ class FirebaseManager {
     }
   }
 
-    Future<int> getSentenceCount() async {
+  Future<int> getSentenceCount() async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
-      final userDocRef =
-          FirebaseFirestore.instance.collection(Strings.STR_FIRESTORE_USERS_COLLECTION).doc(currentUser!.uid);
-      final dataColRef = userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-      final sentenceDocSnapshot = await dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED).get();
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+      final dataColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
+      final sentenceDocSnapshot =
+          await dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED).get();
 
       final wordData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
       if (wordData == null) {
@@ -217,7 +238,8 @@ class FirebaseManager {
     }
   }
 
-  Future<Map<String, String>?> getMeanings(List<String> words, String dataType) async {
+  Future<Map<String, String>?> getMeanings(
+      List<String> words, String dataType) async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
       final userDocRef = FirebaseFirestore.instance
