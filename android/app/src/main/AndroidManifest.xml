@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.memorize_wodrds">
    <application
-        android:label="memorize_wodrds"
+        android:label="Memorize\nWords"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
