@@ -390,7 +390,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const BorderRadiusStack(
               imageAsset: Images.IMG_BG_RADIUS_WHITE,
-              text: Strings.STR_ADD_SCREEN_SENTENCE_ADD,
+              text: "수정 예정",
             ),
           ],
         ),
