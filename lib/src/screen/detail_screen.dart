@@ -48,8 +48,7 @@ class _DetailScreenState extends State<DetailScreen> {
     });
 
     if (_selectedOption == 0) {
-      showEditDialog(
-          context, widget.text, widget.meaning, widget.type);
+      showEditDialog(context, widget.text, widget.meaning, widget.type);
     } else if (_selectedOption == 1) {
       showSelectDialog(
           context, deletePopupSelection, Strings.STR_DELETE_QUESTION);
@@ -63,7 +62,8 @@ class _DetailScreenState extends State<DetailScreen> {
         ToastDialog.showToastDialog(context, Strings.STR_WORD_DELETE_SUCCESS);
       } else {
         firebaseManager.deleteSentence(widget.text);
-        ToastDialog.showToastDialog(context, Strings.STR_SENTENCE_DELETE_SUCCESS);
+        ToastDialog.showToastDialog(
+            context, Strings.STR_SENTENCE_DELETE_SUCCESS);
       }
 
       Navigator.pop(context);
@@ -73,7 +73,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Padding(
@@ -102,32 +102,39 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 140,
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.text,
-                  style: const TextStyle(
-                      fontSize: 34, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  widget.meaning,
-                  style: const TextStyle(fontSize: 28),
-                ),
-                const SizedBox(height: 20),
-                IconButton(
-                  iconSize: 30,
-                  onPressed: _speak,
-                  icon: const Icon(Icons.volume_mute),
-                  tooltip: 'Listen to pronunciation',
-                  color: Colors.grey,
-                ),
-              ],
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text(
+                      widget.text,
+                      style: const TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Text(
+                      widget.meaning,
+                      style: const TextStyle(fontSize: 28),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  IconButton(
+                    iconSize: 30,
+                    onPressed: _speak,
+                    icon: const Icon(Icons.volume_mute),
+                    tooltip: 'Listen to pronunciation',
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
             ),
           ),
         ],

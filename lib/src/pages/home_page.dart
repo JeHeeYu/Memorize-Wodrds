@@ -117,13 +117,11 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     ScheduleDialog.show(context);
                   },
-                  child: Container(
-                    child: Text(
-                      getCurrentDate(),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  child: Text(
+                    getCurrentDate(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -137,7 +135,9 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 30),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -195,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                             builder: (context, wordSnapshot) {
                               if (wordSnapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               } else if (wordSnapshot.hasData) {
                                 int wordCount = wordSnapshot.data ?? 0;
 
@@ -204,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                                   builder: (context, sentenceSnapshot) {
                                     if (sentenceSnapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return CircularProgressIndicator();
+                                      return const CircularProgressIndicator();
                                     } else if (sentenceSnapshot.hasData) {
                                       int sentenceCount =
                                           sentenceSnapshot.data ?? 0;
@@ -261,8 +261,7 @@ class _HomePageState extends State<HomePage> {
                                                 style: const TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold,
-                                                  color:
-                                                      Colors.blue,
+                                                  color: Colors.blue,
                                                 ),
                                               ),
                                               const Text(
