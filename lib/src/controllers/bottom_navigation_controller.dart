@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorize_wodrds/src/pages/more_page.dart';
 import 'package:memorize_wodrds/src/pages/profile_page.dart';
 import 'package:memorize_wodrds/src/pages/search_page.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
@@ -19,6 +20,7 @@ class _BottomNavigationControllerState
   final List<Widget> _pages = <Widget>[
     const HomePage(),
     const SearchPage(),
+    const MorePage(),
     const ProfilePage(),
   ];
 
@@ -48,10 +50,17 @@ class _BottomNavigationControllerState
             label: Strings.STR_BOTTOM_TAB_SEARCH,
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.more_horiz),
+            label: Strings.STR_BOTTOM_TAB_MORE,
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: Strings.STR_BOTTOM_TAB_PROFILE,
           ),
         ],
+        showUnselectedLabels: true,
+        selectedItemColor: Colors.blue, // 선택된 아이템의 색상
+        unselectedItemColor: Colors.grey, // 선택되지 않은 아이템의 색상
         selectedLabelStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,

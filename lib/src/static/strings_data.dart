@@ -19,6 +19,7 @@ class Strings {
   static const String STR_BOTTOM_TAB_HOME = "홈";
   static const String STR_BOTTOM_TAB_SEARCH = "검색";
   static const String STR_BOTTOM_TAB_PROFILE = "마이";
+  static const String STR_BOTTOM_TAB_MORE = "더보기";
 
   // Home Widget
   static const String STR_HOME_WIDGET_ADD = "추가하기";
@@ -38,6 +39,7 @@ class Strings {
   static const String STR_PROFILE_MENU = "계정 관리";
   static const String STR_PROFILE_CURRENT_ACCOUNT = "현재 로그인된 계정";
   static const String STR_PROFILE_SIGN_OUT = "로그아웃 하기";
+  static const String STR_PROFILE_MORE = "더보기";
 
   // Add Screen
   static const String STR_ADD_SCREEN_WORD_ADD = "단어 추가하기";
