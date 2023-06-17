@@ -40,4 +40,10 @@ class Images {
 
   static const String IMG_ONBOARDING_TOP_TEXT = "assets/images/ico-memorize.png";
   static const String IMG_ONBOARDING_BOTTOM_TEXT = "assets/images/ico-words.png";
+
+  // Solve Screen
+  static const String IMG_NUMBER_ONE = "assets/images/ico-number-one.png";
+  static const String IMG_NUMBER_TWO = "assets/images/ico-number-two.png";
+  static const String IMG_NUMBER_THREE = "assets/images/ico-number-three.png";
+  static const String IMG_NUMBER_FOUR = "assets/images/ico-number-four.png";
 }

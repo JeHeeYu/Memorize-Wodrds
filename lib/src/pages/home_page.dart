@@ -13,6 +13,8 @@ import 'package:memorize_wodrds/src/screen/word_search_screen.dart';
 import 'package:memorize_wodrds/src/static/images_data.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
 
+import '../screen/solve_screen.dart';
+
 enum HomeIcon {
   add,
   search,
@@ -35,37 +37,6 @@ class _HomePageState extends State<HomePage> {
   late int? selectIndex = 0;
 
   final FirebaseManager firebaseManager = FirebaseManager();
-
-  Widget homeWidgetImage(int index) {
-    AssetImage imageAsset;
-
-    if (index == HomeIcon.add.index) {
-      imageAsset = const AssetImage(Images.IMG_HOME_ADD_BUTTON);
-    } else if (index == HomeIcon.search.index) {
-      imageAsset = const AssetImage(Images.IMG_HOME_SEARCH_BUTTON);
-    } else if (index == HomeIcon.list.index) {
-      imageAsset = const AssetImage(Images.IMG_HOME_LIST);
-    } else {
-      imageAsset = const AssetImage(Images.IMG_HOME_SEARCH_BUTTON);
-    }
-    return Expanded(
-      child: Image(
-        image: imageAsset,
-      ),
-    );
-  }
-
-  Widget homeWidgetString(int index) {
-    if (index == HomeIcon.add.index) {
-      return const Text(Strings.STR_HOME_WIDGET_ADD);
-    } else if (index == HomeIcon.search.index) {
-      return const Text(Strings.STR_HOME_WIDGET_SEARCH);
-    } else if (index == HomeIcon.list.index) {
-      return const Text(Strings.STR_HOME_WIDGET_LIST);
-    } else {
-      return const Text(Strings.STR_HOME_WIDGET_SEARCH);
-    }
-  }
 
   Future<void> navigateToScreen(BuildContext? context, int index) async {
     if (index == HomeIcon.add.index) {

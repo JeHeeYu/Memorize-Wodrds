@@ -1,0 +1,213 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
+import '../network/firebase_manager.dart';
+import '../static/common_data.dart';
+import '../static/images_data.dart';
+
+enum Result {
+  correct,
+  incorrect,
+}
+
+enum SolveListNumber { one, two, three, four }
+
+class SolveScreen extends StatefulWidget {
+  const SolveScreen({Key? key}) : super(key: key);
+
+  @override
+  _SolveScreenState createState() => _SolveScreenState();
+}
+
+class _SolveScreenState extends State<SolveScreen> {
+  final FirebaseManager firebaseManager = FirebaseManager();
+  late String randomQuestionWord;
+  List<int> resultList =
+      List<int>.filled(Common.questionListMaxCount, Result.incorrect.index);
+  List<String> meaningList =
+      List<String>.filled(Common.questionListMaxCount, "");
+
+  late bool isNewImageShown = false;
+  late double opacityValue = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    getRandomQuestionWord();
+  }
+
+  void getRandomQuestionWord() async {
+    final word = await firebaseManager.getRandomWord();
+    setState(() {
+      randomQuestionWord = word;
+    });
+
+    questionListInit();
+  }
+
+  void questionListInit() async {
+    final int randomNumber = getRandomCorrectNumber();
+    final String correctMeaning =
+        await firebaseManager.getWordMeaning(randomQuestionWord);
+
+    if (randomNumber >= resultList.length) {
+      return;
+    }
+
+    if (meaningList.length < Common.questionListMaxCount) {
+      meaningList = List<String>.filled(Common.questionListMaxCount, "");
+    }
+
+    for (int i = 0; i < Common.questionListMaxCount; i++) {
+      final String randomMeaning = await firebaseManager.getRandomWordMeaning();
+
+      if (i != randomNumber) {
+        meaningList[i] = randomMeaning;
+      }
+    }
+
+    setState(() {
+      meaningList[randomNumber] = correctMeaning;
+      resultList[randomNumber] = Result.correct.index;
+    });
+
+    for (int i = 0; i < Common.questionListMaxCount; i++) {
+      final String randomMeaning = await firebaseManager.getRandomWordMeaning();
+
+      if (meaningList[i] == "") {
+        meaningList[i] = randomMeaning;
+      }
+    }
+  }
+
+  int getRandomCorrectNumber() {
+    Random random = Random();
+    int randomNumber = random.nextInt(Common.questionListMaxCount);
+    return randomNumber;
+  }
+
+  void resultCheck(int listIndex) async {
+    final String correctMeaning =
+        await firebaseManager.getWordMeaning(randomQuestionWord);
+
+    if (correctMeaning == meaningList[listIndex]) {
+      setState(() {
+        isNewImageShown = true;
+        opacityValue = 1.0;
+        resultImageTimer();
+      });
+    } else {
+      setState(() {
+        isNewImageShown = false;
+        opacityValue = 0.0;
+      });
+    }
+  }
+
+  Widget _showResultImage() {
+    AssetImage image = AssetImage(Images.IMG_SEARCH_SCREEN_O);
+
+    return Positioned.fill(
+      child: IgnorePointer(
+        ignoring: !isNewImageShown,
+        child: AnimatedOpacity(
+          opacity: opacityValue,
+          duration: const Duration(milliseconds: 1000),
+          child: Image(
+            image: image,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void resultImageTimer() {
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      setState(() {
+        opacityValue = 0.0;
+      });
+    });
+  }
+
+  Widget _solveList(int listIndex, String meaning) {
+    AssetImage image;
+
+    if (listIndex == SolveListNumber.one.index) {
+      image = const AssetImage(Images.IMG_NUMBER_ONE);
+    } else if (listIndex == SolveListNumber.two.index) {
+      image = const AssetImage(Images.IMG_NUMBER_TWO);
+    } else if (listIndex == SolveListNumber.three.index) {
+      image = const AssetImage(Images.IMG_NUMBER_THREE);
+    } else {
+      image = const AssetImage(Images.IMG_NUMBER_FOUR);
+    }
+
+    return GestureDetector(
+      onTap: () {
+        resultCheck(listIndex);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 70),
+          Padding(
+            padding: const EdgeInsets.only(left: 50),
+            child: SizedBox(
+              width: 50,
+              child: Image(
+                image: image,
+              ),
+            ),
+          ),
+          const SizedBox(width: 30),
+          Expanded(
+            child: Text(
+              meaning,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (randomQuestionWord.isEmpty) {
+      return const CircularProgressIndicator();
+    }
+    return Scaffold(
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  randomQuestionWord,
+                  style: const TextStyle(
+                    fontSize: 52,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                _solveList(SolveListNumber.one.index, meaningList[0]),
+                _solveList(SolveListNumber.two.index, meaningList[1]),
+                _solveList(SolveListNumber.three.index, meaningList[2]),
+                _solveList(SolveListNumber.four.index, meaningList[3]),
+              ],
+            ),
+          ),
+          _showResultImage(),
+        ],
+      ),
+    );
+  }
+}
