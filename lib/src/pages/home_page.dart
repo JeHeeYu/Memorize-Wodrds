@@ -12,6 +12,7 @@ import 'package:memorize_wodrds/src/screen/list_screen.dart';
 import 'package:memorize_wodrds/src/screen/word_search_screen.dart';
 import 'package:memorize_wodrds/src/static/images_data.dart';
 import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/screen/login_screen.dart';
 
 import '../screen/solve_screen.dart';
 

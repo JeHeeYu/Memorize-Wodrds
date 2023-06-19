@@ -46,4 +46,7 @@ class Images {
   static const String IMG_NUMBER_TWO = "assets/images/ico-number-two.png";
   static const String IMG_NUMBER_THREE = "assets/images/ico-number-three.png";
   static const String IMG_NUMBER_FOUR = "assets/images/ico-number-four.png";
+
+  // Login Screen
+  static const String IMG_GOOGLE_LOGO = "assets/images/ico-google-logo.png";
 }

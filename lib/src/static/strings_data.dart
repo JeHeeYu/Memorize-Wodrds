@@ -62,6 +62,8 @@ class Strings {
   // List Screen
   static const String STR_ADD_SCREEN_WORD_LIST = "단어 보기";
   
+  // Login Screen
+  static const String STR_LOGIN_GOOGLE = "Google 계정으로 계속하기";
 
   // Firestore Key
   static const String STR_FIRESTORE_USERS_COLLECTION = 'users';
