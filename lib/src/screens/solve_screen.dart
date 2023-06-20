@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../network/firebase_manager.dart';
-import '../static/common_data.dart';
-import '../static/images_data.dart';
+import '../statics/common_data.dart';
+import '../statics/images_data.dart';
 
 enum Result {
   correct,

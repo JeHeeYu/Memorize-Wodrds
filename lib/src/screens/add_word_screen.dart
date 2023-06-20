@@ -5,7 +5,7 @@ import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/components/toast_dialog.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 

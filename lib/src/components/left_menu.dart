@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/pages/home_page.dart';
-import 'package:memorize_wodrds/src/screen/add_sentence_screen.dart';
-import 'package:memorize_wodrds/src/screen/add_word_screen.dart';
-import 'package:memorize_wodrds/src/screen/list_screen.dart';
-import 'package:memorize_wodrds/src/screen/word_search_screen.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/screens/add_sentence_screen.dart';
+import 'package:memorize_wodrds/src/screens/add_word_screen.dart';
+import 'package:memorize_wodrds/src/screens/list_screen.dart';
+import 'package:memorize_wodrds/src/screens/word_search_screen.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
 
 enum HomeIcon {
   home,

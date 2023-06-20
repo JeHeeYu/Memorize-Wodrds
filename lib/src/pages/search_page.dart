@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
-import 'package:memorize_wodrds/src/screen/word_search_screen.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/screens/word_search_screen.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
 
 import '../components/left_menu.dart';
-import '../screen/sentence_search_screen.dart';
+import '../screens/sentence_search_screen.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);

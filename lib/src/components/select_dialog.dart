@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../static/strings_data.dart';
+import '../statics/strings_data.dart';
 
 class SelectDialog extends StatelessWidget {
   final String mainText;

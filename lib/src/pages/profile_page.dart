@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
-import 'package:memorize_wodrds/src/screen/login_screen.dart';
+import 'package:memorize_wodrds/src/screens/login_screen.dart';
 
 import '../components/app_bar_widget.dart';
 import '../components/left_menu.dart';
 import '../network/firebase_manager.dart';
-import '../static/images_data.dart';
-import '../static/strings_data.dart';
+import '../statics/images_data.dart';
+import '../statics/strings_data.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);

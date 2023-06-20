@@ -6,15 +6,15 @@ import 'package:memorize_wodrds/src/components/schedule_dialog.dart';
 import 'package:memorize_wodrds/src/components/select_dialog.dart';
 import 'package:memorize_wodrds/src/components/border_radius_widget.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
-import 'package:memorize_wodrds/src/screen/add_sentence_screen.dart';
-import 'package:memorize_wodrds/src/screen/add_word_screen.dart';
-import 'package:memorize_wodrds/src/screen/list_screen.dart';
-import 'package:memorize_wodrds/src/screen/word_search_screen.dart';
-import 'package:memorize_wodrds/src/static/images_data.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
-import 'package:memorize_wodrds/src/screen/login_screen.dart';
+import 'package:memorize_wodrds/src/screens/add_sentence_screen.dart';
+import 'package:memorize_wodrds/src/screens/add_word_screen.dart';
+import 'package:memorize_wodrds/src/screens/list_screen.dart';
+import 'package:memorize_wodrds/src/screens/word_search_screen.dart';
+import 'package:memorize_wodrds/src/statics/images_data.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
+import 'package:memorize_wodrds/src/screens/login_screen.dart';
 
-import '../screen/solve_screen.dart';
+import '../screens/solve_screen.dart';
 
 enum HomeIcon {
   add,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:memorize_wodrds/src/app.dart';
-import 'package:memorize_wodrds/src/screen/onboarding_screen.dart';
+import 'package:memorize_wodrds/src/screens/onboarding_screen.dart';
 import 'package:intl/intl.dart';
 
 void main() async {

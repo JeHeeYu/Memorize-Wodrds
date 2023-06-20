@@ -4,8 +4,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../components/app_bar_widget.dart';
 import '../components/left_menu.dart';
-import '../static/images_data.dart';
-import '../static/strings_data.dart';
+import '../statics/images_data.dart';
+import '../statics/strings_data.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({super.key});

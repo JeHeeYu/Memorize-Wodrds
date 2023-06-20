@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/pages/more_page.dart';
 import 'package:memorize_wodrds/src/pages/profile_page.dart';
 import 'package:memorize_wodrds/src/pages/search_page.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
 import '../pages/home_page.dart';
 
 class BottomNavigationController extends StatefulWidget {

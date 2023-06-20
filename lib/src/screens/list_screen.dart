@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
-import 'package:memorize_wodrds/src/static/images_data.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/statics/images_data.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
 
 class ListScreen extends StatelessWidget {
   static final List<String> imagesPath = [

@@ -3,10 +3,10 @@ import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
 import 'package:memorize_wodrds/src/components/search_bar_widget.dart';
 import 'package:memorize_wodrds/src/network/firebase_manager.dart';
-import 'package:memorize_wodrds/src/screen/detail_screen.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/screens/detail_screen.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
 
-import '../static/common_data.dart';
+import '../statics/common_data.dart';
 
 class SentenceSearchScreen extends StatefulWidget {
   const SentenceSearchScreen({Key? key}) : super(key: key);

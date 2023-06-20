@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/components/toast_dialog.dart';
 
 import '../network/firebase_manager.dart';
-import '../static/common_data.dart';
-import '../static/strings_data.dart';
+import '../statics/common_data.dart';
+import '../statics/strings_data.dart';
 
 class EditDialog extends StatefulWidget {
   final String editText;

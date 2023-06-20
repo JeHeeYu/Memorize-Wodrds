@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/app.dart';
 import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
 
-import '../static/images_data.dart';
-import '../static/strings_data.dart';
+import '../statics/images_data.dart';
+import '../statics/strings_data.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

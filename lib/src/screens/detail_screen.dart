@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:memorize_wodrds/src/components/app_bar_widget.dart';
 import 'package:memorize_wodrds/src/components/left_menu.dart';
-import 'package:memorize_wodrds/src/static/strings_data.dart';
+import 'package:memorize_wodrds/src/statics/strings_data.dart';
 
 import '../components/edit_dialog.dart';
 import '../components/select_dialog.dart';
 import '../components/toast_dialog.dart';
 import '../network/firebase_manager.dart';
-import '../static/common_data.dart';
-import '../static/images_data.dart';
+import '../statics/common_data.dart';
+import '../statics/images_data.dart';
 
 class DetailScreen extends StatefulWidget {
   final String text;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/app.dart';
 import 'package:memorize_wodrds/src/authentication/authentication_manager.dart';
-import 'package:memorize_wodrds/src/screen/login_screen.dart';
-import 'package:memorize_wodrds/src/static/images_data.dart';
+import 'package:memorize_wodrds/src/screens/login_screen.dart';
+import 'package:memorize_wodrds/src/statics/images_data.dart';
 
 class OnboardingScreen extends StatelessWidget {
   final AuthenticationManager authenticationManager = AuthenticationManager();
