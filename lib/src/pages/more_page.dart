@@ -54,7 +54,7 @@ class MorePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Text(
-                  'More Title',
+                  Strings.STR_MORE_TITLE,
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
