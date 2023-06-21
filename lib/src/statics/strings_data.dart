@@ -65,6 +65,10 @@ class Strings {
   // Login Screen
   static const String STR_LOGIN_GOOGLE = "Google 계정으로 계속하기";
 
+  // More Page
+  static const String STR_MORE_TITLE = "전체 서비스 모아보기";
+  static const String STR_MORE_TEST = "문제 풀기";
+
   // Firestore Key
   static const String STR_FIRESTORE_USERS_COLLECTION = 'users';
   static const String STR_FIRESTORE_DATA_COLLECTION = 'data';

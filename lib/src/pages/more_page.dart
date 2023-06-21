@@ -1,56 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../components/app_bar_widget.dart';
-import '../components/left_menu.dart';
-import '../statics/images_data.dart';
 import '../statics/strings_data.dart';
 
 class MorePage extends StatelessWidget {
-  const MorePage({super.key});
+  const MorePage({Key? key}) : super(key: key);
 
-  Widget _buildGridItem(AssetImage image, String text) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Image(
-              image: image,
-              // width: 20,
-              // height: 20,
+  Widget _buildGridItem(IconData iconData, String text, int index) {
+    return GestureDetector(
+      onTap: () {
+        print('jehee Test : $index');
+      },
+      child: Container(
+        child: Column(
+          children: [
+            Icon(
+              iconData,
+              size: 50,
             ),
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: Text(
+            const SizedBox(height: 10),
+            Text(
               text,
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 14),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<IconData> iconList = [
+      Icons.check_circle_outline,
+      Icons.favorite_border,
+      Icons.star_border,
+      Icons.thumb_up,
+    ];
+
+    final List<String> stringList = [
+      Strings.STR_MORE_TEST,
+      Strings.STR_MORE_TEST,
+      Strings.STR_MORE_TEST,
+      Strings.STR_MORE_TEST,
+    ];
+
     return Scaffold(
-      appBar: const AppBarWidget(
-        title: Strings.STR_PROFILE_MORE,
-      ),
-      drawer: const LeftMenu(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: GridView.count(
-          crossAxisCount: 2,
-          childAspectRatio: 3,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
           children: [
-            _buildGridItem(AssetImage(Images.IMG_ARROW_BOTTOM), 'Item 1'),
-            _buildGridItem(AssetImage(Images.IMG_ARROW_BOTTOM), 'Item 1'),
-            _buildGridItem(AssetImage(Images.IMG_ARROW_BOTTOM), 'Item 1'),
-            // 그리드 아이템을 추가해 나갈 수 있습니다.
+            const SizedBox(height: 60),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  'More Title',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(
+              height: 30,
+              thickness: 2,
+            ),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  mainAxisSpacing: 60,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 1,
+                ),
+                itemCount: 4,
+                itemBuilder: (BuildContext context, int index) {
+                  return _buildGridItem(iconList[index], stringList[index], index);
+                },
+              ),
+            ),
           ],
         ),
       ),
