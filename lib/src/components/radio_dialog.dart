@@ -138,10 +138,7 @@ class _RadioDialogState extends State<RadioDialog> {
                           minimumSize: const Size(100, 40),
                         ),
                         onPressed: () {
-                          // if (widget.onPressed != null) {
-                          //   widget.onPressed!(selectedRadio ?? 1);
-                          //   Navigator.pop(context);
-                          // }
+                          Navigator.pop(context);
                         },
                         child: Text(widget.cancelButtonText),
                       ),
