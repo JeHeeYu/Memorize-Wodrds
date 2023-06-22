@@ -28,8 +28,9 @@ class _SolveScreenState extends State<SolveScreen> {
   List<String> meaningList =
       List<String>.filled(Common.questionListMaxCount, "");
 
-  late bool isNewImageShown = false;
+  late bool resultImageShow = false;
   late double opacityValue = 0.0;
+  late bool resultCorrect = false;
 
   @override
   void initState() {
@@ -93,27 +94,37 @@ class _SolveScreenState extends State<SolveScreen> {
 
     if (correctMeaning == meaningList[listIndex]) {
       setState(() {
-        isNewImageShown = true;
+        resultImageShow = true;
+        resultCorrect = true;
         opacityValue = 1.0;
         resultImageTimer();
       });
     } else {
       setState(() {
-        isNewImageShown = false;
-        opacityValue = 0.0;
+        resultImageShow = false;
+        resultCorrect = false;
+        opacityValue = 1.0;
+        resultImageTimer();
       });
     }
   }
 
   Widget _showResultImage() {
-    AssetImage image = AssetImage(Images.IMG_SEARCH_SCREEN_O);
+    AssetImage image;
+
+    if(resultCorrect == true) {
+      image = const AssetImage(Images.IMG_SOLVE_CORRECT);
+    }
+    else {
+      image = const AssetImage(Images.IMG_SOLVE_INCORRECT);
+    }
 
     return Positioned.fill(
       child: IgnorePointer(
-        ignoring: !isNewImageShown,
+        //ignoring: !resultImageShow,
         child: AnimatedOpacity(
           opacity: opacityValue,
-          duration: const Duration(milliseconds: 1000),
+          duration: const Duration(milliseconds: 2000),
           child: Image(
             image: image,
           ),
@@ -126,6 +137,10 @@ class _SolveScreenState extends State<SolveScreen> {
     Future.delayed(const Duration(milliseconds: 1000), () {
       setState(() {
         opacityValue = 0.0;
+        getRandomQuestionWord();
+        questionListInit();
+
+        resultImageShow = false;
       });
     });
   }
@@ -145,7 +160,10 @@ class _SolveScreenState extends State<SolveScreen> {
 
     return GestureDetector(
       onTap: () {
-        resultCheck(listIndex);
+        if(resultImageShow == false) {
+          resultCheck(listIndex);
+        }
+        
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -67,7 +67,9 @@ class Strings {
 
   // More Page
   static const String STR_MORE_TITLE = "전체 서비스 모아보기";
+  static const String STR_MORE_TEST_SETTING_DIALOG_TEST = "문제 유형을 선택해주세요.";
   static const String STR_MORE_TEST = "문제 풀기";
+  static const String STR_MORE_TEST_SETTING = "문제 설정";
 
   // Firestore Key
   static const String STR_FIRESTORE_USERS_COLLECTION = 'users';

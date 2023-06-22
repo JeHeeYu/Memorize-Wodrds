@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:memorize_wodrds/src/components/radio_dialog.dart';
 
+import '../screens/solve_screen.dart';
 import '../statics/strings_data.dart';
+
+enum MoreList {
+  test,
+  testSetting,
+  count
+}
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
 
-  Widget _buildGridItem(IconData iconData, String text, int index) {
+  Widget _buildGridItem(BuildContext context, IconData iconData, String text, int index) {
     return GestureDetector(
       onTap: () {
-        print('jehee Test : $index');
+        changeScreen(context, index);
       },
       child: Container(
         child: Column(
@@ -28,20 +36,32 @@ class MorePage extends StatelessWidget {
     );
   }
 
+  Future<void> changeScreen(BuildContext? context, int index) async {
+    if(index == MoreList.test.index) {
+        await Navigator.push(
+        context!,
+        MaterialPageRoute(builder: (context) => const SolveScreen()),
+      );
+    }
+    else if(index == MoreList.testSetting.index) {
+      showRadioDialog(context!, settingPopupSelection, Strings.STR_MORE_TEST_SETTING_DIALOG_TEST);
+    }
+  }
+  
+  void settingPopupSelection(int option) {
+    print('jehee : $option');
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<IconData> iconList = [
       Icons.check_circle_outline,
-      Icons.favorite_border,
-      Icons.star_border,
-      Icons.thumb_up,
+      Icons.settings_applications_outlined,
     ];
 
     final List<String> stringList = [
       Strings.STR_MORE_TEST,
-      Strings.STR_MORE_TEST,
-      Strings.STR_MORE_TEST,
-      Strings.STR_MORE_TEST,
+      Strings.STR_MORE_TEST_SETTING,
     ];
 
     return Scaffold(
@@ -74,9 +94,9 @@ class MorePage extends StatelessWidget {
                   crossAxisSpacing: 10,
                   childAspectRatio: 1,
                 ),
-                itemCount: 4,
+                itemCount: MoreList.count.index,
                 itemBuilder: (BuildContext context, int index) {
-                  return _buildGridItem(iconList[index], stringList[index], index);
+                  return _buildGridItem(context, iconList[index], stringList[index], index);
                 },
               ),
             ),
