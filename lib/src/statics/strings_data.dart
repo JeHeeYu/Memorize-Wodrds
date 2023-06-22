@@ -65,6 +65,10 @@ class Strings {
   // Login Screen
   static const String STR_LOGIN_GOOGLE = "Google 계정으로 계속하기";
 
+  // Solve Screen
+  static const String STR_SOLVE_CORRECT_FORMAT = "정답 : ";
+  static const String STR_SOLVE_INCORRECT_FORMAT = "   오답 : ";
+
   // More Page
   static const String STR_MORE_TITLE = "전체 서비스 모아보기";
   static const String STR_MORE_TEST_SETTING_DIALOG_TEST = "문제 유형을 선택해주세요.";

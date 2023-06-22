@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../network/firebase_manager.dart';
 import '../statics/common_data.dart';
 import '../statics/images_data.dart';
+import '../statics/strings_data.dart';
 
 enum Result {
   correct,
@@ -31,6 +32,11 @@ class _SolveScreenState extends State<SolveScreen> {
   late bool resultImageShow = false;
   late double opacityValue = 0.0;
   late bool resultCorrect = false;
+
+  int solveListMaxCount = 50;
+  int currentSolveCount = 0;
+  int correctCount = 0;
+  int incorrectCount = 0;
 
   @override
   void initState() {
@@ -89,6 +95,8 @@ class _SolveScreenState extends State<SolveScreen> {
   }
 
   void resultCheck(int listIndex) async {
+    currentSolveCount++;
+
     final String correctMeaning =
         await firebaseManager.getWordMeaning(randomQuestionWord);
 
@@ -97,6 +105,7 @@ class _SolveScreenState extends State<SolveScreen> {
         resultImageShow = true;
         resultCorrect = true;
         opacityValue = 1.0;
+        correctCount++;
         resultImageTimer();
       });
     } else {
@@ -104,6 +113,7 @@ class _SolveScreenState extends State<SolveScreen> {
         resultImageShow = false;
         resultCorrect = false;
         opacityValue = 1.0;
+        incorrectCount++;
         resultImageTimer();
       });
     }
@@ -112,10 +122,9 @@ class _SolveScreenState extends State<SolveScreen> {
   Widget _showResultImage() {
     AssetImage image;
 
-    if(resultCorrect == true) {
+    if (resultCorrect == true) {
       image = const AssetImage(Images.IMG_SOLVE_CORRECT);
-    }
-    else {
+    } else {
       image = const AssetImage(Images.IMG_SOLVE_INCORRECT);
     }
 
@@ -160,17 +169,16 @@ class _SolveScreenState extends State<SolveScreen> {
 
     return GestureDetector(
       onTap: () {
-        if(resultImageShow == false) {
+        if (resultImageShow == false) {
           resultCheck(listIndex);
         }
-        
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 70),
           Padding(
-            padding: const EdgeInsets.only(left: 50),
+            padding: const EdgeInsets.only(left: 30),
             child: SizedBox(
               width: 50,
               child: Image(
@@ -220,6 +228,58 @@ class _SolveScreenState extends State<SolveScreen> {
                 _solveList(SolveListNumber.two.index, meaningList[1]),
                 _solveList(SolveListNumber.three.index, meaningList[2]),
                 _solveList(SolveListNumber.four.index, meaningList[3]),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${currentSolveCount.toString()} / ${solveListMaxCount.toString()}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 19,
+            right: 10,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    children: [
+                      const TextSpan(
+                        text: Strings.STR_SOLVE_CORRECT_FORMAT,
+                        style: TextStyle(
+                          color: Colors.green,
+                        ),
+                      ),
+                      TextSpan(text: correctCount.toString()),
+                      const TextSpan(
+                        text: Strings.STR_SOLVE_INCORRECT_FORMAT,
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                      TextSpan(text: incorrectCount.toString()),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
