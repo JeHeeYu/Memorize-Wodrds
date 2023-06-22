@@ -4,16 +4,13 @@ import 'package:memorize_wodrds/src/components/radio_dialog.dart';
 import '../screens/solve_screen.dart';
 import '../statics/strings_data.dart';
 
-enum MoreList {
-  test,
-  testSetting,
-  count
-}
+enum MoreList { test, testSetting, count }
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
 
-  Widget _buildGridItem(BuildContext context, IconData iconData, String text, int index) {
+  Widget _buildGridItem(
+      BuildContext context, IconData iconData, String text, int index) {
     return GestureDetector(
       onTap: () {
         changeScreen(context, index);
@@ -37,19 +34,23 @@ class MorePage extends StatelessWidget {
   }
 
   Future<void> changeScreen(BuildContext? context, int index) async {
-    if(index == MoreList.test.index) {
-        await Navigator.push(
+    if (index == MoreList.test.index) {
+      await Navigator.push(
         context!,
         MaterialPageRoute(builder: (context) => const SolveScreen()),
       );
-    }
-    else if(index == MoreList.testSetting.index) {
-      showRadioDialog(context!, settingPopupSelection, Strings.STR_MORE_TEST_SETTING_DIALOG_TEST);
+    } else if (index == MoreList.testSetting.index) {
+      showRadioDialog(
+          context!,
+          settingPopupSelection,
+          Strings.STR_MORE_TEST_SETTING_DIALOG_TEST,
+          Strings.STR_COMMON_WORD,
+          Strings.STR_COMMON_SENTENCE,
+          Strings.STR_MORE_WORD_SENTENCE);
     }
   }
-  
+
   void settingPopupSelection(int option) {
-    print('jehee : $option');
   }
 
   @override
@@ -96,7 +97,8 @@ class MorePage extends StatelessWidget {
                 ),
                 itemCount: MoreList.count.index,
                 itemBuilder: (BuildContext context, int index) {
-                  return _buildGridItem(context, iconList[index], stringList[index], index);
+                  return _buildGridItem(
+                      context, iconList[index], stringList[index], index);
                 },
               ),
             ),
