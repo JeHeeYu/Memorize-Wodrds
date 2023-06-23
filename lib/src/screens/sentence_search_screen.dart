@@ -23,7 +23,7 @@ class _SentenceSearchScreenState extends State<SentenceSearchScreen> {
 
   void _handleSearch(String query) {
     firebaseManager.searchSentences(query).then((results) {
-      firebaseManager.getMeanings(results, Strings.STR_FIRESTORE_SENTENCES_FILED).then((meanings) {
+      firebaseManager.getMeanings(results, Strings.STR_FIRESTORE_SENTENCES_FIELD).then((meanings) {
         setState(() {
           _searchResults = results;
           _meanings = meanings ?? {};

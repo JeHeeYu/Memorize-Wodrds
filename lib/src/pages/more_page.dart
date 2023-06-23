@@ -1,70 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:memorize_wodrds/src/components/radio_dialog.dart';
+import 'package:memorize_wodrds/src/network/firebase_manager.dart';
+import 'package:memorize_wodrds/src/screens/word_search_screen.dart';
 
+import '../components/item_widget.dart';
+import '../components/select_dialog.dart';
 import '../screens/solve_screen.dart';
+import '../statics/common_data.dart';
 import '../statics/strings_data.dart';
-
-enum MoreList { test, testSetting, count }
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
 
-  Widget _buildGridItem(
-      BuildContext context, IconData iconData, String text, int index) {
-    return GestureDetector(
-      onTap: () {
-        changeScreen(context, index);
-      },
-      child: Container(
-        child: Column(
-          children: [
-            Icon(
-              iconData,
-              size: 50,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 14),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> changeScreen(BuildContext? context, int index) async {
-    if (index == MoreList.test.index) {
-      await Navigator.push(
-        context!,
-        MaterialPageRoute(builder: (context) => const SolveScreen()),
-      );
-    } else if (index == MoreList.testSetting.index) {
-      showRadioDialog(
-          context!,
-          settingPopupSelection,
-          Strings.STR_MORE_TEST_SETTING_DIALOG_TEST,
-          Strings.STR_COMMON_WORD,
-          Strings.STR_COMMON_SENTENCE,
-          Strings.STR_MORE_WORD_SENTENCE);
-    }
-  }
-
-  void settingPopupSelection(int option) {
-  }
-
   @override
   Widget build(BuildContext context) {
-    final List<IconData> iconList = [
-      Icons.check_circle_outline,
-      Icons.settings_applications_outlined,
-    ];
-
-    final List<String> stringList = [
-      Strings.STR_MORE_TEST,
-      Strings.STR_MORE_TEST_SETTING,
-    ];
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -97,8 +46,11 @@ class MorePage extends StatelessWidget {
                 ),
                 itemCount: MoreList.count.index,
                 itemBuilder: (BuildContext context, int index) {
-                  return _buildGridItem(
-                      context, iconList[index], stringList[index], index);
+                  return ItemWidget(
+                    iconData: Common.iconList[index],
+                    iconText: Common.stringList[index],
+                    iconListIndex: MoreList.values[index]
+                  );
                 },
               ),
             ),

@@ -35,6 +35,8 @@ class Strings {
 
   static const String STR_HOME_BACK_KEY_TOAST_MESSAGE = "한 번 더 누르면 종료됩니다.";
 
+  static const String STR_HOME_FAVORITE = "즐겨찾기";
+
   // Profile
   static const String STR_PROFILE_MENU = "계정 관리";
   static const String STR_PROFILE_CURRENT_ACCOUNT = "현재 로그인된 계정";
@@ -75,12 +77,22 @@ class Strings {
   static const String STR_MORE_TEST = "문제 풀기";
   static const String STR_MORE_TEST_SETTING = "문제 설정";
   static const String STR_MORE_WORD_SENTENCE = "단어 + 문장";
+  static const String STR_MORE_ADD_FAVORITE = "즐겨찾기에 추가 하시겠습니까?";
+  static const String STR_MORE_REMOVE_FAVORITE = "즐겨찾기에서 삭제 하시겠습니까?";
 
   // Firestore Key
   static const String STR_FIRESTORE_USERS_COLLECTION = 'users';
   static const String STR_FIRESTORE_DATA_COLLECTION = 'data';
   static const String STR_FIRESTORE_WORDS_FIELD = 'words';
-  static const String STR_FIRESTORE_SENTENCES_FILED = 'sentences';
+  static const String STR_FIRESTORE_SENTENCES_FIELD = 'sentences';
+
+  static const String STR_FIRESTORE_SETTINGS_COLLECTION = 'settings';
+
+  static const String STR_FIRESTORE_FAVORITE_COLLECTION = 'favorites';
+  static const String STR_FIRESTORE_FIRST_FAVORITE_FIELD = 'firstFavorite';
+  static const String STR_FIRESTORE_SECOND_FAVORITE_FIELD = 'secondFavorite';
+  static const String STR_FIRESTORE_THIRD_FAVORITE_FIELD = 'thirdFavorite';
+  static const String STR_FIRESTORE_FOUR_FAVORITE_FIELD = 'fourFavorite';
 
   // Popup
   static const String STR_ADD_SCREEN_ADD_TYPE = "추가할 내용을 선택해주세요.";

@@ -14,7 +14,9 @@ import 'package:memorize_wodrds/src/statics/images_data.dart';
 import 'package:memorize_wodrds/src/statics/strings_data.dart';
 import 'package:memorize_wodrds/src/screens/login_screen.dart';
 
+import '../components/item_widget.dart';
 import '../screens/solve_screen.dart';
+import '../statics/common_data.dart';
 
 enum HomeIcon {
   add,
@@ -37,7 +39,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late int? selectIndex = 0;
 
+  late List<int> favoriteList = [];
+
   final FirebaseManager firebaseManager = FirebaseManager();
+
+  @override
+  void initState() {
+    super.initState();
+    loadFavoriteItems();
+  }
 
   Future<void> navigateToScreen(BuildContext? context, int index) async {
     if (index == HomeIcon.add.index) {
@@ -69,6 +79,27 @@ class _HomePageState extends State<HomePage> {
     var now = DateTime.now();
     var formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(now);
+  }
+
+  Future<void> loadFavoriteItems() async {
+    final favoriteFields = [
+      Strings.STR_FIRESTORE_FIRST_FAVORITE_FIELD,
+      Strings.STR_FIRESTORE_SECOND_FAVORITE_FIELD,
+      Strings.STR_FIRESTORE_THIRD_FAVORITE_FIELD,
+      Strings.STR_FIRESTORE_FOUR_FAVORITE_FIELD
+    ];
+
+    for (final field in favoriteFields) {
+      final value = await firebaseManager.readFavoriteValue(field);
+
+      if (value == -1) {
+        return; 
+      }
+      
+      setState(() {
+        favoriteList.add(value);
+      });
+    }
   }
 
   @override
@@ -249,11 +280,11 @@ class _HomePageState extends State<HomePage> {
                                         ],
                                       );
                                     }
-                                    return const SizedBox(); // 데이터가 없을 때는 빈 컨테이너 반환
+                                    return const SizedBox();
                                   },
                                 );
                               }
-                              return const SizedBox(); // 데이터가 없을 때는 빈 컨테이너 반환
+                              return const SizedBox();
                             },
                           ),
                         ),
@@ -359,9 +390,47 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const BorderRadiusStack(
-              imageAsset: Images.IMG_BG_RADIUS_WHITE,
-              text: "수정 예정",
+            const Divider(
+              height: 60,
+              thickness: 1,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Icon(
+                    Icons.star_border_outlined,
+                    size: 30,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    Strings.STR_HOME_FAVORITE,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                favoriteList.length,
+                (index) => ItemWidget(
+                  iconData: Common.iconList[favoriteList[index]],
+                  iconText: Common.stringList[favoriteList[index]],
+                  iconListIndex: MoreList.values[favoriteList[index]],
+                ),
+              ),
             ),
           ],
         ),

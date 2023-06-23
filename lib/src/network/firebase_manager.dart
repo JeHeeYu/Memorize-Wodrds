@@ -115,7 +115,7 @@ class FirebaseManager {
       final dataColRef =
           userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
       final sentenceDocRef =
-          dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+          dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FIELD);
 
       final sentenceDocSnapshot = await sentenceDocRef.get();
       final sentencedData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
@@ -140,7 +140,7 @@ class FirebaseManager {
       final dataColRef =
           userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
       final sentenceDocRef =
-          dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+          dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FIELD);
 
       final sentenceDocSnapshot = await sentenceDocRef.get();
       final sentenceData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
@@ -222,7 +222,7 @@ class FirebaseManager {
         .doc(currentUser!.uid);
     final dataColRef =
         userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-    final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+    final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FIELD);
 
     return wordDocRef.snapshots().map((snapshot) {
       final wordData = snapshot.data() as Map<String, dynamic>?;
@@ -264,7 +264,7 @@ class FirebaseManager {
           .doc(currentUser!.uid);
       final dataColRef =
           userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
-      final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+      final wordDocRef = dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FIELD);
       final wordDocSnapshot = await wordDocRef.get();
       final wordData = wordDocSnapshot.data() as Map<String, dynamic>?;
       final matchingWords = wordData?.keys
@@ -337,7 +337,7 @@ class FirebaseManager {
       final dataColRef =
           userDocRef.collection(Strings.STR_FIRESTORE_DATA_COLLECTION);
       final sentenceDocRef =
-          dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FILED);
+          dataColRef.doc(Strings.STR_FIRESTORE_SENTENCES_FIELD);
 
       final sentenceDocSnapshot = await sentenceDocRef.get();
       final sentenceData = sentenceDocSnapshot.data() as Map<String, dynamic>?;
@@ -414,6 +414,77 @@ class FirebaseManager {
     } catch (e) {
       print('Failed to get random word meaning: $e');
       return '';
+    }
+  }
+
+  Future<void> addFavorite(int favoriteIndex) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+
+      final favoritesColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_SETTINGS_COLLECTION);
+
+      final favoritesDocSnapshot = await favoritesColRef
+          .doc(Strings.STR_FIRESTORE_FAVORITE_COLLECTION)
+          .get();
+      final favoritesData =
+          favoritesDocSnapshot.data() as Map<String, dynamic>?;
+
+      if (favoritesData == null) {
+        await favoritesColRef
+            .doc(Strings.STR_FIRESTORE_FAVORITE_COLLECTION)
+            .set({
+          Strings.STR_FIRESTORE_FIRST_FAVORITE_FIELD: favoriteIndex,
+        });
+      } else {
+        final favoriteFields = [
+          Strings.STR_FIRESTORE_FIRST_FAVORITE_FIELD,
+          Strings.STR_FIRESTORE_SECOND_FAVORITE_FIELD,
+          Strings.STR_FIRESTORE_THIRD_FAVORITE_FIELD,
+          Strings.STR_FIRESTORE_FOUR_FAVORITE_FIELD
+        ];
+
+        for (final field in favoriteFields) {
+          if (favoritesData[field] == null) {
+            await favoritesColRef
+                .doc(Strings.STR_FIRESTORE_FAVORITE_COLLECTION)
+                .update({field: favoriteIndex});
+            break;
+          }
+        }
+      }
+    } catch (e) {
+      print('Failed to add favorite: $e');
+    }
+  }
+
+  Future<int> readFavoriteValue(String favoriteKey) async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final userDocRef = FirebaseFirestore.instance
+          .collection(Strings.STR_FIRESTORE_USERS_COLLECTION)
+          .doc(currentUser!.uid);
+
+      final favoritesColRef =
+          userDocRef.collection(Strings.STR_FIRESTORE_SETTINGS_COLLECTION);
+
+      final favoritesDocSnapshot = await favoritesColRef
+          .doc(Strings.STR_FIRESTORE_FAVORITE_COLLECTION)
+          .get();
+      final favoritesData =
+          favoritesDocSnapshot.data() as Map<String, dynamic>?;
+
+      if (favoritesData != null && favoritesData.containsKey(favoriteKey)) {
+        return favoritesData[favoriteKey] as int;
+      } else {
+        return -1;
+      }
+    } catch (e) {
+      print('Failed to read favorite value: $e');
+      return -1;
     }
   }
 }
