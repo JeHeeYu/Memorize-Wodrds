@@ -1,8 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../main.dart';
+import '../app.dart';
 import '../network/firebase_manager.dart';
+import '../pages/home_page.dart';
+import '../providers/solve_provider.dart';
 import '../statics/common_data.dart';
 import '../statics/images_data.dart';
 import '../statics/strings_data.dart';
@@ -33,7 +38,9 @@ class _SolveScreenState extends State<SolveScreen> {
   late double opacityValue = 0.0;
   late bool resultCorrect = false;
 
-  int solveListMaxCount = 50;
+  late SolveProvider solveProvider;
+
+  int solveListMaxCount = 5;
   int currentSolveCount = 0;
   int correctCount = 0;
   int incorrectCount = 0;
@@ -41,10 +48,18 @@ class _SolveScreenState extends State<SolveScreen> {
   @override
   void initState() {
     super.initState();
+    solveProvider = Provider.of<SolveProvider>(context, listen: false);
     getRandomQuestionWord();
   }
 
   void getRandomQuestionWord() async {
+    if (solveProvider.getCurrentSolveCount() == solveProvider.getSolveListMaxCount()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const App()),
+      );
+    }
+
     final word = await firebaseManager.getRandomWord();
     setState(() {
       randomQuestionWord = word;
@@ -95,7 +110,9 @@ class _SolveScreenState extends State<SolveScreen> {
   }
 
   void resultCheck(int listIndex) async {
-    currentSolveCount++;
+    //SolveProvider solveProvider = Provider.of<SolveProvider>(context, listen: false);
+    solveProvider.setCurrentSolveCount();
+    //currentSolveCount++;
 
     final String correctMeaning =
         await firebaseManager.getWordMeaning(randomQuestionWord);
@@ -105,7 +122,8 @@ class _SolveScreenState extends State<SolveScreen> {
         resultImageShow = true;
         resultCorrect = true;
         opacityValue = 1.0;
-        correctCount++;
+        solveProvider.setCorrectCount();
+        //correctCount++;
         resultImageTimer();
       });
     } else {
@@ -113,7 +131,8 @@ class _SolveScreenState extends State<SolveScreen> {
         resultImageShow = false;
         resultCorrect = false;
         opacityValue = 1.0;
-        incorrectCount++;
+        solveProvider.setIncorrectCount();
+        //incorrectCount++;
         resultImageTimer();
       });
     }
@@ -203,6 +222,8 @@ class _SolveScreenState extends State<SolveScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //SolveProvider solveProvider = Provider.of<SolveProvider>(context);
+
     if (randomQuestionWord.isEmpty) {
       return const CircularProgressIndicator();
     }
@@ -239,7 +260,7 @@ class _SolveScreenState extends State<SolveScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${currentSolveCount.toString()} / ${solveListMaxCount.toString()}',
+                  '${solveProvider.getCurrentSolveCount().toString()} / ${solveProvider.getSolveListMaxCount().toString()}',
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -269,14 +290,14 @@ class _SolveScreenState extends State<SolveScreen> {
                           color: Colors.green,
                         ),
                       ),
-                      TextSpan(text: correctCount.toString()),
+                      TextSpan(text: solveProvider.getCorrectCount().toString()),
                       const TextSpan(
                         text: Strings.STR_SOLVE_INCORRECT_FORMAT,
                         style: TextStyle(
                           color: Colors.red,
                         ),
                       ),
-                      TextSpan(text: incorrectCount.toString()),
+                      TextSpan(text: solveProvider.getIncorrectCount().toString()),
                     ],
                   ),
                 ),
